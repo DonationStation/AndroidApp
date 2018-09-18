@@ -4,9 +4,10 @@
     <item android:drawable="@android:color/white"/>
 
     <!-- Set the Background Image-->
-    <item android:gravity="center" android:width="300dp" android:height="500dp">
+    <item android:gravity="center" android:width="1900dp" android:height="2100dp">
         <bitmap
             android:gravity="center"
             android:src="@drawable/donation_station"/>
+
     </item>
 </layer-list>
