@@ -75,23 +75,12 @@ public class LoginActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
-
-        Button cancelButton = findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cancelLogin();
-            }
-        });
+        
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
 
-    private void cancelLogin() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 
     /**
      * Attempts to sign in or register the account specified by the login form.
