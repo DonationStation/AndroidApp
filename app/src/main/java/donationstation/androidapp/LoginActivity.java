@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
-        
+
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -218,18 +218,32 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         }
 
+        // Remove after M3 and uncomment method below
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
-            if (success) {
+            Boolean successM3 = mEmail.equals("user") && mPassword.equals("pass");
+            if (successM3) {
                 homepage();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
         }
+
+        // @Override
+        // protected void onPostExecute(final Boolean success) {
+        //     mAuthTask = null;
+        //     showProgress(false);
+
+        //     if (success) {
+        //         homepage();
+        //     } else {
+        //         mPasswordView.setError(getString(R.string.error_incorrect_password));
+        //         mPasswordView.requestFocus();
+        //     }
+        // }
     }
 
     private void homepage() {
