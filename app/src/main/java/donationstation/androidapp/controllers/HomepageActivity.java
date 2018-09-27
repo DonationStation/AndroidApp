@@ -1,4 +1,4 @@
-package donationstation.androidapp;
+package donationstation.androidapp.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import donationstation.androidapp.R;
 
 public class HomepageActivity extends AppCompatActivity {
 
