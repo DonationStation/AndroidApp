@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidApp</string>
+    <string name="app_name">Donation Station</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -20,4 +20,9 @@
     <string name="registration">Registration</string>
     <string name="action_logout">Logout</string>
     <string name="title_activity_homepage">Homepage</string>
+    <string name="prompt_user">Username</string>
+    <string name="prompt_password_mandatory">Password</string>
+    <string name="prompt_id">User ID</string>
+    <string name="name">Name</string>
+    <string name="cancel">Cancel</string>
 </resources>
