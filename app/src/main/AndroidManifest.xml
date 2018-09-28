@@ -24,7 +24,8 @@
         <activity
             android:name=".controllers.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".controllers.RegistrationActivity" />
+        <activity android:name=".controllers.RegistrationActivity"
+            android:label="@string/title_activity_registration"/>
         <activity
             android:name=".controllers.HomepageActivity"
             android:label="@string/title_activity_homepage"
