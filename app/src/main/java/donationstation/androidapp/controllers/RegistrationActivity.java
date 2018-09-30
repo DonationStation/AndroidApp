@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 
 import donationstation.androidapp.R;
 import donationstation.androidapp.model.Registration;
+import donationstation.androidapp.model.User;
+import donationstation.androidapp.model.Admin;
 
 public class RegistrationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -26,7 +28,7 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         accountSpinner = findViewById(R.id.accountType);
 
         //array of possible account types
-        String [] accountTypes = {"Select Account Type","Admin", "User", "Manager", "Employee"};
+        String [] accountTypes = {"Select Account Type", "Admin", "User", "Manager", "Employee"};
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
@@ -50,7 +52,29 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
     }
 
     public void accept(View view) {
+        String final
+        Registration aUser;
+
+        // make object based on the one's account_type
+        if (accountSpinner.toString().equals("User")) {
+            aUser = new User();
+        } else if (accountSpinner.equals("Admin")) {
+            aUser = new Admin();
+        }
+
+        // Check if there is a same account with the same name
+        for (Registration r : Registration.getRegistrationArray()) {
+            if (r.equals(aUser)) {
+                error message
+                Intent intent = new Intent(this, RegistrationActivity.class);
+                startActivity(intent);
+            }
+        }
+
+        // Add a new user to array and send to homepage.
+        add it to array, and go to signin screen
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+
     }
 }

@@ -1,11 +1,13 @@
 package donationstation.androidapp.model;
+import java.util.ArrayList;
 
-public class Registration {
+public abstract class Registration {
     private String name;
     private String email;
     private String password;
     private boolean accountState;
     private String accountType;
+    private static ArrayList<Registration> registrationArray;
 
     public Registration() {
         name = "n/a";
@@ -21,6 +23,10 @@ public class Registration {
 
     public String getAccount() {
         return accountType;
+    }
+
+    public static ArrayList<Registration> getRegistrationArray() {
+        return registrationArray;
     }
 
     @Override
