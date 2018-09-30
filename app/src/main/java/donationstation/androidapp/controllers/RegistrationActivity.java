@@ -48,4 +48,9 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
     public void onNothingSelected(AdapterView<?> parent) {
         _account.setAccount("Guest");
     }
+
+    public void accept(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
 }
