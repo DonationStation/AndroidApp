@@ -22,4 +22,11 @@ public class Registration {
     public String getAccount() {
         return accountType;
     }
+
+    @Override
+    public boolean equals(Object o){
+        boolean checkEmail = this.email.equals( ((Registration) o).email);
+        boolean checkPassword = this.name.equals(((Registration) o).name);
+        return checkEmail && checkPassword;
+    }
 }
