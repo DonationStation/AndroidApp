@@ -210,14 +210,10 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
 
-            if (mEmail.equals("user")){
-                // Account exists, return true if the password matches.
-                return mPassword.equals("pass");
-            }
-
+//            TODO: register the new account here.
             if(!mEmail.isEmpty() && !mPassword.isEmpty()) {
-                // TODO: register the new account here.
-                registration();
+//
+//                registration();
                 return false;
             }
             return true;
@@ -234,7 +230,9 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
             }
-            mPasswordView.setError(getString(R.string.error_incorrect_password));
+//            mPasswordView.setError(getString(R.string.error_incorrect_password));
+            mPasswordView.setError("Password or Username Incorrect");
+
             mPasswordView.requestFocus();
         }
 
