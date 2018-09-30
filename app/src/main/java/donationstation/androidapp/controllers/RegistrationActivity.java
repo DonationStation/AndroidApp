@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 
 
 import donationstation.androidapp.R;
@@ -17,6 +19,12 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
     private Spinner accountSpinner;
 
     private Registration _account;
+    private EditText mPasswordView;
+    private EditText mNameView;
+    private EditText mUserView;
+    private EditText mEmailView;
+    private Spinner mAccountType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +40,33 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, accountTypes);
         accountSpinner.setAdapter(adapter);
+
+        //associating boxes in gui to objects
+        mEmailView = findViewById(R.id.email);
+        mPasswordView = findViewById(R.id.password);
+        mNameView = findViewById(R.id.name);
+        mUserView = findViewById(R.id.username);
+        mAccountType = findViewById(R.id.accountType);
+
+
+        Button mRegistrationSignInButton = findViewById(R.id.registerButton);
+        mRegistrationSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptRegistration();
+            }
+        });
+    }
+
+    private void attemptRegistration() {
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        String username = mUserView.getText().toString();
+        String name = mNameView.getText().toString();
+        String accountType = mAccountType.getSelectedItem().toString();
+
+
+        System.out.println(email + password + username + name + accountType);
     }
 
     public void main(View view) {
