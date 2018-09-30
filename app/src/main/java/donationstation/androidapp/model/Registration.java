@@ -2,19 +2,20 @@ package donationstation.androidapp.model;
 import java.util.ArrayList;
 
 public abstract class Registration {
-    private String name;
-    private String email;
-    private String password;
-    private boolean accountState;
-    private String accountType;
-    private static ArrayList<Registration> registrationArray;
+    protected String name;
+    protected String email;
+    protected String password;
+    protected String username;
+    protected boolean accountState;
+    protected String accountType;
+    protected static ArrayList<Registration> registrationArray = new ArrayList<>();
 
-    public Registration() {
-        name = "n/a";
-        email = "n/a";
-        password = "n/a";
-        accountState = true;
-        accountType = "n/a";
+    public Registration(String name, String email, String password, String username) {
+        this.username = username;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.accountState = true;
     }
 
     public void setAccount(String acc) {
@@ -25,6 +26,10 @@ public abstract class Registration {
         return accountType;
     }
 
+
+    public String getUsername() { return username; }
+    public String getEmail() { return email; }
+
     public static ArrayList<Registration> getRegistrationArray() {
         return registrationArray;
     }
@@ -32,7 +37,12 @@ public abstract class Registration {
     @Override
     public boolean equals(Object o){
         boolean checkEmail = this.email.equals( ((Registration) o).email);
-        boolean checkPassword = this.name.equals(((Registration) o).name);
-        return checkEmail && checkPassword;
+        boolean checkUsername = this.username.equals(((Registration) o).username);
+        return checkEmail && checkUsername;
+    }
+
+    @Override
+    public String toString() {
+        return "A member named " + name + ". And username " + username;
     }
 }

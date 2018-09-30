@@ -1,10 +1,11 @@
 package donationstation.androidapp.model;
 
 public class Admin extends Registration {
-    private String name;
-    private String email;
-    private String password;
-    private boolean accountState;
 
-    private boolean isAdmin;
+    public Admin(String name, String email, String password, String username) {
+        super(name, email, password, username);
+    }
+
+    public void setAccountState(boolean newState) { super.accountState = newState; }
+    public boolean getAccountState() { return super.accountState; }
 }

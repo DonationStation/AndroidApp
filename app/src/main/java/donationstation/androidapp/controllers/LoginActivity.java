@@ -22,6 +22,7 @@ import android.widget.TextView;
 import donationstation.androidapp.R;
 import donationstation.androidapp.controllers.HomepageActivity;
 import donationstation.androidapp.controllers.RegistrationActivity;
+import donationstation.androidapp.model.Registration;
 
 
 /**
@@ -227,13 +228,14 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-            Boolean successM3 = mEmail.equals("user") && mPassword.equals("pass");
-            if (successM3) {
-                homepage();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+            for (Registration member : Registration.getRegistrationArray()) {
+                if (member.getUsername().equals(mEmail) && member.getEmail().equals(mPassword)) {
+                    homepage();
+                    return;
+                }
             }
+            mPasswordView.setError(getString(R.string.error_incorrect_password));
+            mPasswordView.requestFocus();
         }
 
         // @Override

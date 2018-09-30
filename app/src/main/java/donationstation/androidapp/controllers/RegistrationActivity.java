@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
 
+import java.util.ArrayList;
+
 import donationstation.androidapp.R;
 import donationstation.androidapp.model.Registration;
 import donationstation.androidapp.model.User;
@@ -67,8 +69,48 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         String name = mNameView.getText().toString();
         String accountType = mAccountType.getSelectedItem().toString();
 
+        // To do
+        if (accountType.equals("Select Account Type")) {
+        }
 
-        System.out.println(email + password + username + name + accountType);
+
+        if (checkRegistration(email, username)) {
+            Registration newUser;
+            switch (accountType) {
+                case "User":
+                    newUser = new User(name, email, password, username);
+                    break;
+                case "Admin":
+                    newUser = new Admin(name, email, password, username);
+                    break;
+//                case "Manager":
+//                    break;
+//                case "Employee":
+//                    break;
+                default:
+                    newUser = new User(name, email, password, username);
+                    break;
+            }
+            Registration.getRegistrationArray().add(newUser);
+            System.out.println(newUser);
+            accept();
+        }
+    }
+
+    private boolean checkRegistration(String email, String username) {
+        // Check if there is a same account with the same name
+        if (Registration.getRegistrationArray() == null) {
+            return true;
+        }
+        if (Registration.getRegistrationArray().isEmpty()) {
+            return true;
+        }
+        for (Registration member : Registration.getRegistrationArray()) {
+            if (member.getUsername().equals(username) || member.getEmail().equals(email)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void main(View view) {
@@ -86,30 +128,8 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         _account.setAccount("Guest");
     }
 
-    public void accept(View view) {
-        String final
-        Registration aUser;
-
-        // make object based on the one's account_type
-        if (accountSpinner.toString().equals("User")) {
-            aUser = new User();
-        } else if (accountSpinner.equals("Admin")) {
-            aUser = new Admin();
-        }
-
-        // Check if there is a same account with the same name
-        for (Registration r : Registration.getRegistrationArray()) {
-            if (r.equals(aUser)) {
-                error message
-                Intent intent = new Intent(this, RegistrationActivity.class);
-                startActivity(intent);
-            }
-        }
-
-        // Add a new user to array and send to homepage.
-        add it to array, and go to signin screen
-        Intent intent = new Intent(this, LoginActivity.class);
+    public void accept() {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
     }
 }
