@@ -53,13 +53,13 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         mAccountType = findViewById(R.id.accountType);
 
 
-        Button mRegistrationSignInButton = findViewById(R.id.registerButton);
-        mRegistrationSignInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptRegistration();
-            }
-        });
+//        Button mRegistrationSignInButton = findViewById(R.id.registerButton);
+//        mRegistrationSignInButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                attemptRegistration();
+//            }
+//        });
     }
 
     private void attemptRegistration() {
@@ -69,7 +69,7 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         String name = mNameView.getText().toString();
         String accountType = mAccountType.getSelectedItem().toString();
 
-        // To do
+        // Todo
         if (accountType.equals("Select Account Type")) {
         }
 
@@ -93,7 +93,6 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
             }
             Registration.getRegistrationArray().add(newUser);
             System.out.println(newUser);
-            accept();
         }
     }
 
@@ -128,7 +127,8 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         _account.setAccount("Guest");
     }
 
-    public void accept() {
+    public void accept(View view) {
+        attemptRegistration();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

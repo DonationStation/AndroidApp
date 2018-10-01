@@ -12,10 +12,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -60,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the login form.
         mEmailView = findViewById(R.id.username);
 
-
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -73,15 +70,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-
-
+//        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
+//        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                attemptLogin();
+//            }
+//        });
+//
+//
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
@@ -135,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            mAuthTask.onPostExecute(true);
         //}
     }
 
@@ -225,13 +222,13 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = null;
             showProgress(false);
             for (Registration member : Registration.getRegistrationArray()) {
-                if (member.getUsername().equals(mEmail) && member.getEmail().equals(mPassword)) {
+                if ((member.getUsername().equals(mEmail) && member.getPassword().equals(mPassword)) || (member.getEmail().equals(mEmail) && member.getPassword().equals(mPassword))) {
                     homepage();
                     return;
                 }
             }
 //            mPasswordView.setError(getString(R.string.error_incorrect_password));
-            mPasswordView.setError("Password or Username Incorrect");
+            mPasswordView.setError("Username or Password Incorrect");
 
             mPasswordView.requestFocus();
         }
@@ -265,5 +262,8 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void login(View view) {
+        attemptLogin();
+    }
 }
 
