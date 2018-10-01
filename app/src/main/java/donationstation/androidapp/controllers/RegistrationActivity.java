@@ -92,7 +92,6 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
                     break;
             }
             Registration.getRegistrationArray().add(newUser);
-            System.out.println(newUser);
         }
     }
 
