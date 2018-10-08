@@ -5,17 +5,37 @@ import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import donationstation.androidapp.R;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
         // test
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            updateUI();
+        }
+    }
+
+    //will need to update this method later so that method directs to corresponding homepage
+    private void updateUI() {
+        Intent intent = new Intent(this, HomepageActivity.class);
+        startActivity(intent);
+    }
+
     public void login(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
@@ -24,5 +44,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
     }
-
 }

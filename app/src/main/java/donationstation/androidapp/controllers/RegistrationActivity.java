@@ -1,7 +1,10 @@
 package donationstation.androidapp.controllers;
 
+import android.nfc.Tag;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.widget.AdapterView;
@@ -9,6 +12,13 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 import java.util.ArrayList;
@@ -74,25 +84,39 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         }
 
 
-        if (checkRegistration(email, username)) {
-            Registration newUser;
-            switch (accountType) {
-                case "User":
-                    newUser = new User(name, email, password, username);
-                    break;
-                case "Admin":
-                    newUser = new Admin(name, email, password, username);
-                    break;
-//                case "Manager":
+//        if (checkRegistration(email, username)) {
+//            Registration newUser;
+//            switch (accountType) {
+//                case "User":
+//                    newUser = new User(name, email, password, username);
 //                    break;
-//                case "Employee":
+//                case "Admin":
+//                    newUser = new Admin(name, email, password, username);
 //                    break;
-                default:
-                    newUser = new User(name, email, password, username);
-                    break;
-            }
-            Registration.getRegistrationArray().add(newUser);
-        }
+////                case "Manager":
+////                    break;
+////                case "Employee":
+////                    break;
+//                default:
+//                    newUser = new User(name, email, password, username);
+//                    break;
+//            }
+//            Registration.getRegistrationArray().add(newUser);
+//        }
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Log.d("success", "createdUserWithEmail");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI();
+                        } else{
+                            Log.w("failure", "didNotCreateUserWithEmail", task.getException());
+                        }
+                    }
+                });
     }
 
     private boolean checkRegistration(String email, String username) {
@@ -128,7 +152,11 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
 
     public void accept(View view) {
         attemptRegistration();
-        Intent intent = new Intent(this, MainActivity.class);
+        //Intent intent = new Intent(this, LoginActivity.class);
+        //startActivity(intent);
+    }
+    private void updateUI() {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 }
