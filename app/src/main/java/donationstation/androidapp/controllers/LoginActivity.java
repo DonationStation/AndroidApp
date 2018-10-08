@@ -4,18 +4,26 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
-import android.os.AsyncTask;
+//import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import donationstation.androidapp.R;
 import donationstation.androidapp.controllers.HomepageActivity;
@@ -43,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    //private UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -90,17 +98,31 @@ public class LoginActivity extends AppCompatActivity {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
+        final FirebaseAuth  mAuth = FirebaseAuth.getInstance();
+//        if (mAuth != null) {
+//            return;
+//        }
+        // Store values at the time of the login attempt.
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
 
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                      if (task.isSuccessful()) {
+                          Log.d("success", "signInWithEmail:success");
+                          FirebaseUser user = mAuth.getCurrentUser();
+                          updateUI();
+                      } else {
+                          Log.w("failure", "signInWithEmail:failure", task.getException());
+                      }
+                    }
+                });
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
-        // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -131,8 +153,8 @@ public class LoginActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.onPostExecute(true);
+            //mAuthTask = new UserLoginTask(email, password);
+            //mAuthTask.onPostExecute(true);
         //}
     }
 
@@ -186,52 +208,52 @@ public class LoginActivity extends AppCompatActivity {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-//            TODO: register the new account here.
-            if(!mEmail.isEmpty() && !mPassword.isEmpty()) {
+//    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 //
-//                registration();
-                return false;
-            }
-            return true;
-        }
+//        protected final String mEmail;
+//        protected final String mPassword;
+//
+//        UserLoginTask(String email, String password) {
+//            mEmail = email;
+//            mPassword = password;
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//            // TODO: attempt authentication against a network service.
+//
+//            try {
+//                // Simulate network access.
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                return false;
+//            }
+//
+////            TODO: register the new account here.
+//            if(!mEmail.isEmpty() && !mPassword.isEmpty()) {
+////
+////                registration();
+//                return false;
+//            }
+//            return true;
+//        }
 
-        // Remove after M3 and uncomment method below
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-            for (Registration member : Registration.getRegistrationArray()) {
-                if ((member.getUsername().equals(mEmail) && member.getPassword().equals(mPassword)) || (member.getEmail().equals(mEmail) && member.getPassword().equals(mPassword))) {
-                    homepage();
-                    return;
-                }
-            }
-//            mPasswordView.setError(getString(R.string.error_incorrect_password));
-            mPasswordView.setError("Username or Password Incorrect");
-
-            mPasswordView.requestFocus();
-        }
+//        // Remove after M3 and uncomment method below
+//        @Override
+//        protected void onPostExecute(final Boolean success) {
+//            mAuthTask = null;
+//            showProgress(false);
+//            for (Registration member : Registration.getRegistrationArray()) {
+//                if ((member.getUsername().equals(mEmail) && member.getPassword().equals(mPassword)) || (member.getEmail().equals(mEmail) && member.getPassword().equals(mPassword))) {
+//                    updateUI();
+//                    return;
+//                }
+//            }
+////            mPasswordView.setError(getString(R.string.error_incorrect_password));
+//            mPasswordView.setError("Username or Password Incorrect");
+//
+//            mPasswordView.requestFocus();
+//        }
 
         // @Override
         // protected void onPostExecute(final Boolean success) {
@@ -245,9 +267,9 @@ public class LoginActivity extends AppCompatActivity {
         //         mPasswordView.requestFocus();
         //     }
         // }
-    }
-
-    private void homepage() {
+    //}
+    //will need to update this method later so that method directs to corresponding homepage
+    private void updateUI() {
         Intent intent = new Intent(this, HomepageActivity.class);
         startActivity(intent);
     }
