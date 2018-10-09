@@ -7,8 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import donationstation.androidapp.R;
 
 public class HomepageActivity extends AppCompatActivity {
@@ -22,8 +20,6 @@ public class HomepageActivity extends AppCompatActivity {
 
     }
     public void logout(View view) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

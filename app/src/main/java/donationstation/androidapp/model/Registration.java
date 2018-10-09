@@ -8,7 +8,7 @@ public abstract class Registration {
     protected String username;
     protected boolean accountState;
     protected String accountType;
-    private static ArrayList<Registration> registrationArray = new ArrayList<>();
+    protected static ArrayList<Registration> registrationArray = new ArrayList<>();
 
     public Registration(String name, String email, String password, String username) {
         this.username = username;
@@ -21,6 +21,7 @@ public abstract class Registration {
     public void setAccount(String acc) {
         accountType = acc;
     }
+
     public String getAccount() {
         return accountType;
     }

@@ -1,11 +1,10 @@
-**/.idea
-j.iml
+*.iml
 .gradle
 /local.properties
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
-/.ideae/caches/build_file_checksums.ser
+/.idea/caches/build_file_checksums.ser
 .DS_Store
 /build
 /captures
