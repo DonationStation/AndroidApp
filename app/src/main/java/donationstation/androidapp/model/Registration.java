@@ -6,7 +6,7 @@ public abstract class Registration {
     protected String email;
     protected String password;
     protected String username;
-    private boolean accountState;
+    protected boolean accountState;
     protected String accountType;
     private static ArrayList<Registration> registrationArray = new ArrayList<>();
 
