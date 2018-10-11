@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.ArrayList;
@@ -73,10 +75,10 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
     }
 
     private void attemptRegistration() {
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
-        String username = mUserView.getText().toString();
-        String name = mNameView.getText().toString();
+        final String email = mEmailView.getText().toString();
+        final String password = mPasswordView.getText().toString();
+        final String username = mUserView.getText().toString();
+        final String name = mNameView.getText().toString();
         String accountType = mAccountType.getSelectedItem().toString();
 
         // Todo
@@ -104,6 +106,9 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
 //            Registration.getRegistrationArray().add(newUser);
 //        }
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference();
+        final DatabaseReference regRef = ref.child("users");
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -111,6 +116,10 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
                         if(task.isSuccessful()){
                             Log.d("success", "createdUserWithEmail");
                             FirebaseUser user = mAuth.getCurrentUser();
+//                            DatabaseReference mDatabase;
+//                            mDatabase = FirebaseDatabase.getInstance().getReference();
+//                            mDatabase.push().setValue(new Registration(name, email, password, username) {
+//                            });
                             updateUI();
                         } else{
                             Log.w("failure", "didNotCreateUserWithEmail", task.getException());

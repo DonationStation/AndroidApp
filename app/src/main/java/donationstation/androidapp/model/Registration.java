@@ -1,4 +1,7 @@
 package donationstation.androidapp.model;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public abstract class Registration {
@@ -9,6 +12,7 @@ public abstract class Registration {
     protected boolean accountState;
     protected String accountType;
     private static ArrayList<Registration> registrationArray = new ArrayList<>();
+
 
     public Registration(String name, String email, String password, String username) {
         this.username = username;
@@ -45,4 +49,6 @@ public abstract class Registration {
     public String toString() {
         return "A member named " + name + ". And username " + username;
     }
+
+
 }
