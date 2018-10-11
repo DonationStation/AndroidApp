@@ -23,25 +23,29 @@ public class LocationListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_list);
 
-
+        // Call location data list
         SimpleModel locations = SimpleModel.INSTANCE;
+
+        // Instantiate recyclerView
         RecyclerView locationLists = (RecyclerView) findViewById(R.id.locationLists);
         locationLists.setLayoutManager(new LinearLayoutManager(this));
-        String[] languages = {locations.getItems().get(0).getName(), locations.getItems().get(1).getName(),
+
+        // Initialize locationNames for the list on locationList Activity
+        String[] locationNames = {locations.getItems().get(0).getName(), locations.getItems().get(1).getName(),
                 locations.getItems().get(2).getName(), locations.getItems().get(3).getName(),
                 locations.getItems().get(4).getName(), locations.getItems().get(5).getName()};
-        locationLists.setAdapter(new locationListAdapter(languages));
 
-
+        // Set the list on the recyclerView adapter
+        locationLists.setAdapter(new locationListAdapter(locationNames));
     }
 
 
     // RecyclerView Adapter
     public class locationListAdapter extends RecyclerView.Adapter<locationListAdapter.locationListViewHolder> {
 
-        private Activity context;
-
         private String[] data;
+
+        // Take a list
         public locationListAdapter(String[] data) {
             this.data = data;
         }
@@ -56,13 +60,19 @@ public class LocationListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull locationListViewHolder holder, int position) {
+            // Set the position value as final to pass it to LocationDetailActivity
+            // position is the index on the order of vertical list on this activity
+            final int pos = position;
             String title = data[position];
             holder.locationName.setText(title);
 
+            // When click each item
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, LocationDetailActivity.class);
+                    Intent intent = new Intent(LocationListActivity.this, LocationDetailActivity.class);
+                    // Get ready for passing position to the next activity
+                    intent.putExtra("position", pos);
                     startActivity(intent);
                 }
             });
