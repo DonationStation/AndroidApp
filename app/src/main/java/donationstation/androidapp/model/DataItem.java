@@ -1,4 +1,4 @@
-package donationstation.androidapp.controllers;
+package donationstation.androidapp.model;
 
 public class DataItem {
     private int key;

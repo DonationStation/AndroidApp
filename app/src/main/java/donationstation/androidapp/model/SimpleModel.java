@@ -1,4 +1,4 @@
-package donationstation.androidapp.controllers;
+package donationstation.androidapp.model;
 
 import android.util.Log;
 
