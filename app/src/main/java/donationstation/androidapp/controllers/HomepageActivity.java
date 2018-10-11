@@ -60,8 +60,8 @@ public class HomepageActivity extends AppCompatActivity {
                 String[] tokens = line.split(",");
                 int id = Integer.parseInt(tokens[0]);
                 model.addItem(new DataItem(id, tokens[1], tokens[2],
-                       tokens[3], tokens[4], tokens[5], tokens[6],
-                        tokens[7],tokens[8],tokens[9],tokens[10]));
+                        tokens[3], tokens[4], tokens[5], tokens[6],
+                        tokens[7], tokens[8], tokens[9], tokens[10]));
             }
             br.close();
         } catch (IOException e) {
