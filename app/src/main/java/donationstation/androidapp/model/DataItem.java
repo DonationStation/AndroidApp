@@ -1,6 +1,6 @@
-package donationstation.androidapp.controllers;
+package donationstation.androidapp.model;
 
-class DataItem {
+public class DataItem {
     private int key;
     private String name;
     private String latitude;
