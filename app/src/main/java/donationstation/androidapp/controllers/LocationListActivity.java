@@ -8,10 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import donationstation.androidapp.R;
+import donationstation.androidapp.model.SimpleModel;
 
 public class LocationListActivity extends AppCompatActivity {
 
@@ -20,9 +20,13 @@ public class LocationListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_list);
 
+
+        SimpleModel locations = SimpleModel.INSTANCE;
         RecyclerView locationLists = (RecyclerView) findViewById(R.id.locationLists);
         locationLists.setLayoutManager(new LinearLayoutManager(this));
-        String[] languages = {"Java", "JavaScript", "C#", "php", "C", "C++", "Python", "Java", "JavaScript", "C#", "php", "C", "C++", "Python"};
+        String[] languages = {locations.getItems().get(0).getName(), locations.getItems().get(1).getName(),
+                locations.getItems().get(2).getName(), locations.getItems().get(3).getName(),
+                locations.getItems().get(4).getName(), locations.getItems().get(5).getName()};
         locationLists.setAdapter(new locationListAdapter(languages));
     }
 
@@ -46,7 +50,7 @@ public class LocationListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull locationListViewHolder holder, int position) {
             String title = data[position];
-            holder.txtTitle.setText(title);
+            holder.locationName.setText(title);
         }
 
         @Override
@@ -55,12 +59,10 @@ public class LocationListActivity extends AppCompatActivity {
         }
 
         public class locationListViewHolder extends RecyclerView.ViewHolder {
-            ImageView imgIcon;
-            TextView txtTitle;
+            TextView locationName;
             public locationListViewHolder(View itemView) {
                 super(itemView);
-                imgIcon = (ImageView) itemView.findViewById(R.id.imgIcon);
-                txtTitle = (TextView) itemView.findViewById(R.id.txtTitle);
+                locationName = (TextView) itemView.findViewById(R.id.locationName);
             }
         }
     }
