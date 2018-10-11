@@ -17,8 +17,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 import donationstation.androidapp.R;
-import donationstation.androidapp.model.DataItem;
-import donationstation.androidapp.model.SimpleModel;
 
 public class HomepageActivity extends AppCompatActivity {
 
@@ -34,7 +32,7 @@ public class HomepageActivity extends AppCompatActivity {
     public void onLoadButtonPressed(View view) {
         Log.v(MainActivity.TAG, "Pressed the load button");
         readLocationDataFile();
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LocationListActivity.class);
         startActivity(intent);
     }
     public void logout(View view) {

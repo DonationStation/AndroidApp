@@ -1,11 +1,9 @@
-package donationstation.androidapp.model;
+package donationstation.androidapp.controllers;
 
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import donationstation.androidapp.model.DataItem;
 
 public class SimpleModel {
     public static final SimpleModel INSTANCE = new SimpleModel();

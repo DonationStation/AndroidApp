@@ -31,6 +31,7 @@
             android:name=".controllers.HomepageActivity"
             android:label="@string/title_activity_homepage"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".controllers.LocationListActivity"></activity>
     </application>
 
 </manifest>
