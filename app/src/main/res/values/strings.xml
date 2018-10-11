@@ -26,4 +26,6 @@
     <string name="name">Name</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_registration">Registration</string>
+    <string name="load">load</string>
+    <string name="load_the_file">Load the File</string>
 </resources>

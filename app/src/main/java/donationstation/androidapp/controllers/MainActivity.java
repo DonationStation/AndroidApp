@@ -2,16 +2,24 @@ package donationstation.androidapp.controllers;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
 import donationstation.androidapp.R;
 
 
 public class MainActivity extends AppCompatActivity {
+    public static String TAG = "MY_APP";
     private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser != null) {
             updateUI();
         }
+        //readLocationDataFile();
     }
 
     //will need to update this method later so that method directs to corresponding homepage
