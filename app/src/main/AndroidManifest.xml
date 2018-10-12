@@ -32,7 +32,16 @@
             android:label="@string/title_activity_homepage"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".controllers.LocationListActivity" />
-        <activity android:name=".controllers.LocationDetailActivity"></activity>
+        <activity android:name=".controllers.LocationDetailActivity" />
+        <activity
+            android:name=".controllers.EmployeeHomepageActivity"
+            android:label="@string/title_activity_employee_homepage"></activity>
+        <activity
+            android:name=".controllers.AddDonationActivity"
+            android:label="@string/title_activity_employee_addDonation"></activity>
+        <activity
+            android:name=".controllers.DonationListActivity"
+            android:label="@string/title_activity_employee_viewDonation"></activity>
     </application>
 
 </manifest>

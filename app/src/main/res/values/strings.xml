@@ -28,4 +28,16 @@
     <string name="title_activity_registration">Registration</string>
     <string name="load">load</string>
     <string name="load_the_file">Load the File</string>
+    <string name="title_activity_employee_homepage">EmployeeHomepageActivity</string>
+    <string name="view_Donations">View Donations</string>
+    <string name="add_donation">Add Donations</string>
+    <string name="title_activity_employee_addDonation">Add Donation</string>
+    <string name="title_activity_employee_viewDonation">View Donations</string>
+    <string name="prompt_timestamp">Timestamp of Donation</string>
+    <string name="prompt_location">Location of Donation</string>
+    <string name="prompt_shortdesc">Short Description</string>
+    <string name="prompt_fulldes">Full Description</string>
+    <string name="prompt_value">Value (in dollars)</string>
+    <string name="prompt_category">Category</string>
+    <string name="addDonation">Add</string>
 </resources>

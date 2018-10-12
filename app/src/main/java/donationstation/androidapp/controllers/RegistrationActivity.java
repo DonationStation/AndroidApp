@@ -120,7 +120,7 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
 //                            mDatabase = FirebaseDatabase.getInstance().getReference();
 //                            mDatabase.push().setValue(new Registration(name, email, password, username) {
 //                            });
-                            updateUI();
+                            updateUI(user);
                         } else{
                             Log.w("failure", "didNotCreateUserWithEmail", task.getException());
                         }
@@ -164,8 +164,13 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         //Intent intent = new Intent(this, LoginActivity.class);
         //startActivity(intent);
     }
-    private void updateUI() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+    private void updateUI(FirebaseUser user) {
+        if (user.getEmail().compareTo("test@example.com") == 0) {
+            Intent intent = new Intent(this, HomepageActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, EmployeeHomepageActivity.class);
+            startActivity(intent);
+        }
     }
 }

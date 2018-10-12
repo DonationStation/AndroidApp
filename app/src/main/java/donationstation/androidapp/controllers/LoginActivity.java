@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                       if (task.isSuccessful()) {
                           Log.d("success", "signInWithEmail:success");
                           FirebaseUser user = mAuth.getCurrentUser();
-                          updateUI();
+                          updateUI(user);
                       } else {
                           Log.w("failure", "signInWithEmail:failure", task.getException());
                       }
@@ -271,11 +271,16 @@ public class LoginActivity extends AppCompatActivity {
         // }
     //}
     //will need to update this method later so that method directs to corresponding homepage
-    private void updateUI() {
-        Intent intent = new Intent(this, HomepageActivity.class);
-        startActivity(intent);
-    }
+    private void updateUI(FirebaseUser user) {
+        if (user.getEmail().compareTo("test@example.com") == 0) {
+         Intent intent = new Intent(this, HomepageActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, EmployeeHomepageActivity.class);
+            startActivity(intent);
+        }
 
+    }
     private void registration() {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
