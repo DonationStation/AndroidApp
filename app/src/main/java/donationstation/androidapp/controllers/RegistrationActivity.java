@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -123,6 +124,9 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
                             updateUI(user);
                         } else{
                             Log.w("failure", "didNotCreateUserWithEmail", task.getException());
+                            Toast.makeText(RegistrationActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
                         }
                     }
                 });
@@ -165,6 +169,10 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         //startActivity(intent);
     }
     private void updateUI(FirebaseUser user) {
+        if (user == null) {
+            Intent intent = new Intent(this, RegistrationActivity.class);
+            startActivity(intent);
+        }
         if (user.getEmail().compareTo("test@example.com") == 0) {
             Intent intent = new Intent(this, HomepageActivity.class);
             startActivity(intent);

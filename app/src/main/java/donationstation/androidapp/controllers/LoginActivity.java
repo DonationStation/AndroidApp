@@ -18,6 +18,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -118,6 +119,9 @@ public class LoginActivity extends AppCompatActivity {
                           updateUI(user);
                       } else {
                           Log.w("failure", "signInWithEmail:failure", task.getException());
+                          Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                  Toast.LENGTH_SHORT).show();
+                          updateUI(null);
                       }
                     }
                 });
@@ -272,6 +276,10 @@ public class LoginActivity extends AppCompatActivity {
     //}
     //will need to update this method later so that method directs to corresponding homepage
     private void updateUI(FirebaseUser user) {
+        if (user == null) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
         if (user.getEmail().compareTo("test@example.com") == 0) {
          Intent intent = new Intent(this, HomepageActivity.class);
             startActivity(intent);
