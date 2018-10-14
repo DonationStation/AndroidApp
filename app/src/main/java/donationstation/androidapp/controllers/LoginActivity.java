@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
 
                       if (task.isSuccessful()) { //login worked
                           Log.d("success", "signInWithEmail:success");
-                          FirebaseUser user = mAuth.getCurrentUser();
+                          FirebaseUser user = mAuth.getCurrentUser(); //grabs current user
                           updateUI(user);
                       } else { //login failed so will redirect to main activity
                           Log.w("failure", "signInWithEmail:failure", task.getException());
@@ -153,11 +153,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
-    private void registration() {
-        Intent intent = new Intent(this, RegistrationActivity.class);
-        startActivity(intent);
-    }
-
     public void cancel(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

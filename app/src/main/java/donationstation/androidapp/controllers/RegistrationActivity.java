@@ -64,15 +64,6 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         mNameView = findViewById(R.id.name);
         mUserView = findViewById(R.id.username);
         mAccountType = findViewById(R.id.accountType);
-
-
-//        Button mRegistrationSignInButton = findViewById(R.id.registerButton);
-//        mRegistrationSignInButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                attemptRegistration();
-//            }
-//        });
     }
 
     private void attemptRegistration() {
@@ -86,43 +77,16 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         if (accountType.equals("Select Account Type")) {
         }
 
-
-//        if (checkRegistration(email, username)) {
-//            Registration newUser;
-//            switch (accountType) {
-//                case "User":
-//                    newUser = new User(name, email, password, username);
-//                    break;
-//                case "Admin":
-//                    newUser = new Admin(name, email, password, username);
-//                    break;
-////                case "Manager":
-////                    break;
-////                case "Employee":
-////                    break;
-//                default:
-//                    newUser = new User(name, email, password, username);
-//                    break;
-//            }
-//            Registration.getRegistrationArray().add(newUser);
-//        }
-        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference();
-        final DatabaseReference regRef = ref.child("users");
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance(); //ref to database
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if(task.isSuccessful()){ //able to create user
                             Log.d("success", "createdUserWithEmail");
                             FirebaseUser user = mAuth.getCurrentUser();
-//                            DatabaseReference mDatabase;
-//                            mDatabase = FirebaseDatabase.getInstance().getReference();
-//                            mDatabase.push().setValue(new Registration(name, email, password, username) {
-//                            });
-                            updateUI(user);
-                        } else{
+                            updateUI(user); //redirects to corresponding homepage
+                        } else{ //failed at creating user
                             Log.w("failure", "didNotCreateUserWithEmail", task.getException());
                             Toast.makeText(RegistrationActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
@@ -130,22 +94,6 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
                         }
                     }
                 });
-    }
-
-    private boolean checkRegistration(String email, String username) {
-        // Check if there is a same account with the same name
-        if (Registration.getRegistrationArray() == null) {
-            return true;
-        }
-        if (Registration.getRegistrationArray().isEmpty()) {
-            return true;
-        }
-        for (Registration member : Registration.getRegistrationArray()) {
-            if (member.getUsername().equals(username) || member.getEmail().equals(email)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public void main(View view) {
@@ -165,8 +113,6 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
 
     public void accept(View view) {
         attemptRegistration();
-        //Intent intent = new Intent(this, LoginActivity.class);
-        //startActivity(intent);
     }
     private void updateUI(FirebaseUser user) {
         if (user == null) {
