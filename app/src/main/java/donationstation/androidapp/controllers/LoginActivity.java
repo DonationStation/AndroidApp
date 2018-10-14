@@ -39,23 +39,6 @@ import donationstation.androidapp.model.Registration;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
-    private static final int REQUEST_READ_CONTACTS = 0;
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "user"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    //private UserLoginTask mAuthTask = null;
-
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -66,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         // Set up the login form.
         mEmailView = findViewById(R.id.username);
 
@@ -81,15 +65,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-//        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                attemptLogin();
-//            }
-//        });
-//
-//
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
@@ -102,9 +77,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void attemptLogin() {
         final FirebaseAuth  mAuth = FirebaseAuth.getInstance();
-//        if (mAuth != null) {
-//            return;
-//        }
+
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
@@ -113,11 +86,12 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                      if (task.isSuccessful()) {
+
+                      if (task.isSuccessful()) { //login worked
                           Log.d("success", "signInWithEmail:success");
                           FirebaseUser user = mAuth.getCurrentUser();
                           updateUI(user);
-                      } else {
+                      } else { //login failed so will redirect to main activity
                           Log.w("failure", "signInWithEmail:failure", task.getException());
                           Toast.makeText(LoginActivity.this, "Authentication failed.",
                                   Toast.LENGTH_SHORT).show();
@@ -125,54 +99,8 @@ public class LoginActivity extends AppCompatActivity {
                       }
                     }
                 });
-        // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
-
-
-        boolean cancel = false;
-        View focusView = null;
-
-//        // Check for a valid password, if the user entered one.
-//        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-//            mPasswordView.setError(getString(R.string.error_invalid_password));
-//            focusView = mPasswordView;
-//            cancel = true;
-//        }
-//
-//        // Check for a valid email address.
-//        if (TextUtils.isEmpty(email)) {
-//            mEmailView.setError(getString(R.string.error_field_required));
-//            focusView = mEmailView;
-//            cancel = true;
-//        } else if (!isEmailValid(email)) {
-//            mEmailView.setError(getString(R.string.error_invalid_email));
-//            focusView = mEmailView;
-//            cancel = true;
-//        }
-
-//        if (cancel) {
-//            // There was an error; don't attempt login and focus the first
-//            // form field with an error.
-//            focusView.requestFocus();
-//        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
             showProgress(true);
-            //mAuthTask = new UserLoginTask(email, password);
-            //mAuthTask.onPostExecute(true);
-        //}
     }
-
-//    private boolean isEmailValid(String email) {
-//        //TODO: Replace this with your own logic
-//        return email.contains("@");
-//    }
-//
-//    private boolean isPasswordValid(String password) {
-//        //TODO: Replace this with your own logic
-//        return password.length() > 4;
-//    }
 
     /**
      * Shows the progress UI and hides the login form.
@@ -210,70 +138,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-//    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-//
-//        protected final String mEmail;
-//        protected final String mPassword;
-//
-//        UserLoginTask(String email, String password) {
-//            mEmail = email;
-//            mPassword = password;
-//        }
-//
-//        @Override
-//        protected Boolean doInBackground(Void... params) {
-//            // TODO: attempt authentication against a network service.
-//
-//            try {
-//                // Simulate network access.
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                return false;
-//            }
-//
-////            TODO: register the new account here.
-//            if(!mEmail.isEmpty() && !mPassword.isEmpty()) {
-////
-////                registration();
-//                return false;
-//            }
-//            return true;
-//        }
-
-//        // Remove after M3 and uncomment method below
-//        @Override
-//        protected void onPostExecute(final Boolean success) {
-//            mAuthTask = null;
-//            showProgress(false);
-//            for (Registration member : Registration.getRegistrationArray()) {
-//                if ((member.getUsername().equals(mEmail) && member.getPassword().equals(mPassword)) || (member.getEmail().equals(mEmail) && member.getPassword().equals(mPassword))) {
-//                    updateUI();
-//                    return;
-//                }
-//            }
-////            mPasswordView.setError(getString(R.string.error_incorrect_password));
-//            mPasswordView.setError("Username or Password Incorrect");
-//
-//            mPasswordView.requestFocus();
-//        }
-
-        // @Override
-        // protected void onPostExecute(final Boolean success) {
-        //     mAuthTask = null;
-        //     showProgress(false);
-
-        //     if (success) {
-        //         homepage();
-        //     } else {
-        //         mPasswordView.setError(getString(R.string.error_incorrect_password));
-        //         mPasswordView.requestFocus();
-        //     }
-        // }
-    //}
     //will need to update this method later so that method directs to corresponding homepage
     private void updateUI(FirebaseUser user) {
         if (user == null) {
