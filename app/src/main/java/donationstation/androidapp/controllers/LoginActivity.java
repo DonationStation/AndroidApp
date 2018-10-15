@@ -93,9 +93,12 @@ public class LoginActivity extends AppCompatActivity {
                           updateUI(user);
                       } else { //login failed so will redirect to main activity
                           Log.w("failure", "signInWithEmail:failure", task.getException());
-                          Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                  Toast.LENGTH_SHORT).show();
-                          updateUI(null);
+                          //Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                  //Toast.LENGTH_SHORT).show();
+                          showProgress(false);
+                          mPasswordView.setError("Username or Password Incorrect");
+                          mPasswordView.requestFocus();
+                          //updateUI(null);
                       }
                     }
                 });
@@ -141,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
     //will need to update this method later so that method directs to corresponding homepage
     private void updateUI(FirebaseUser user) {
         if (user == null) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
         if (user.getEmail().compareTo("test@example.com") == 0) {
