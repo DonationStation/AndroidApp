@@ -7,115 +7,193 @@
     tools:context=".controllers.AddDonationActivity">
 
     <EditText
-        android:id="@+id/timeStamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginEnd="120dp"
-        android:layout_marginBottom="25dp"
+        android:id="@+id/shortDescriptionBox"
+        android:layout_width="216dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="128dp"
+        android:layout_marginStart="16dp"
         android:ems="10"
-        android:hint="@string/prompt_timestamp"
-        android:inputType="time"
-        android:text="@string/prompt_timestamp"
-        app:layout_constraintBottom_toTopOf="@+id/locationOfDonation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:hint="Short Description"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/fullDescriptionBox"
+        android:layout_width="216dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="88dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:hint="Full Description"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/monthSpinner"
+        android:layout_width="110dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="100dp"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <Spinner
+        android:id="@+id/hourSpinner"
+        android:layout_width="110dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="188dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="136dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="356dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/minuteSpinner"
+        android:layout_width="110dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="188dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/ampmSpinner"
+        android:layout_width="110dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="188dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/daySpinner"
+        android:layout_width="110dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="100dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/monthSpinner"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/yearSpinner"
+        android:layout_width="110dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="100dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/daySpinner"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="237dp"
+        android:layout_height="29dp"
+        android:layout_marginEnd="131dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Enter A New Donation"
+        android:textSize="24sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dateOfDonation"
+        android:layout_width="190dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="178dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:text="Date of Donation"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/timeOfDonation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="150dp"
+        android:text="Time of Donation"
+        android:textSize="18sp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/locationOfDonation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="120dp"
-        android:layout_marginBottom="25dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="@string/prompt_location"
-        app:layout_constraintBottom_toTopOf="@+id/shortDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="240dp"
+        android:text="Location of Donation"
+        android:textSize="18sp"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeStamp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/shortDescription"
+    <Spinner
+        android:id="@+id/locationSpinner"
+        android:layout_width="215dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="280dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/donationDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="120dp"
-        android:layout_marginBottom="13dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="@string/prompt_shortdesc"
-        app:layout_constraintBottom_toTopOf="@+id/editText4"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="325dp"
+        android:text="Donation Description"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locationOfDonation" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/donationValueBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="16dp"
         android:ems="10"
-        android:inputType="text"
-        android:text="@string/prompt_fulldes"
-        app:layout_constraintBottom_toTopOf="@+id/value"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shortDescription" />
-
-    <EditText
-        android:id="@+id/value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="120dp"
-        android:layout_marginBottom="2dp"
-        android:ems="10"
-        android:inputType="text|number"
-        android:text="@string/prompt_value"
-        app:layout_constraintBottom_toTopOf="@+id/category"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
-
-    <EditText
-        android:id="@+id/category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="122dp"
-        android:layout_marginBottom="60dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="@string/prompt_category"
+        android:inputType="numberDecimal"
+        android:text="Donation Value"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/value" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/addDonation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="502dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="17dp"
-        android:text="@string/addDonation"
+        android:id="@+id/addDonationButton"
+        android:layout_width="124dp"
+        android:layout_height="69dp"
+        android:layout_marginBottom="72dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="19dp"
+        android:text="Add Donation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/category"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
