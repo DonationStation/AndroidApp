@@ -25,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import donationstation.androidapp.R;
 import donationstation.androidapp.model.Registration;
@@ -41,6 +43,7 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
     private EditText mUserView;
     private EditText mEmailView;
     private Spinner mAccountType;
+    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +74,7 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         final String password = mPasswordView.getText().toString();
         final String username = mUserView.getText().toString();
         final String name = mNameView.getText().toString();
-        String accountType = mAccountType.getSelectedItem().toString();
+        final String accountType = mAccountType.getSelectedItem().toString();
 
         // Todo
         if (accountType.equals("Select Account Type")) {
@@ -85,6 +88,9 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
                         if(task.isSuccessful()){ //able to create user
                             Log.d("success", "createdUserWithEmail");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            if(accountType.equalsIgnoreCase("admin")) {
+                                writeNewUser(name, email, password, username);
+                            }
                             updateUI(user); //redirects to corresponding homepage
                         } else{ //failed at creating user
                             Log.w("failure", "didNotCreateUserWithEmail", task.getException());
@@ -127,4 +133,15 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
             startActivity(intent);
         }
     }
+    private void writeNewUser(String name, String email, String password, String username) {
+        String key = ref.child("users").push().getKey();
+        User user = new User (name, email, password, username);
+        Map<String, Object> postValues = user.toMap();
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/users/" + key, postValues);
+
+        ref.updateChildren(childUpdates);
+    }
+
 }
