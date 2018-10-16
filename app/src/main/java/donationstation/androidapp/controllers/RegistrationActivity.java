@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import donationstation.androidapp.R;
+import donationstation.androidapp.model.Employee;
 import donationstation.androidapp.model.Registration;
 import donationstation.androidapp.model.User;
 import donationstation.androidapp.model.Admin;
@@ -88,15 +89,13 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
                         if(task.isSuccessful()){ //able to create user
                             Log.d("success", "createdUserWithEmail");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            if(accountType.equalsIgnoreCase("admin")) {
-                                writeNewUser(name, email, password, username);
-                            }
-                            updateUI(user); //redirects to corresponding homepage
+                            writeNewUser(name, email, password, username, accountType);
+                            updateUI(user, accountType); //redirects to corresponding homepage
                         } else{ //failed at creating user
                             Log.w("failure", "didNotCreateUserWithEmail", task.getException());
                             Toast.makeText(RegistrationActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            updateUI(null, null);
                         }
                     }
                 });
@@ -120,22 +119,44 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
     public void accept(View view) {
         attemptRegistration();
     }
-    private void updateUI(FirebaseUser user) {
-        if (user == null) {
-            Intent intent = new Intent(this, RegistrationActivity.class);
+    private void updateUI(FirebaseUser user, String accountType) {
+        Intent intent;
+        if (user != null) {
+            switch (accountType) {
+                case "Admin":
+                    intent = new Intent(this, HomepageActivity.class);
+                    startActivity(intent);
+                    break;
+                case "User":
+                    intent = new Intent(this, HomepageActivity.class);
+                    startActivity(intent);
+                    break;
+                case "Manager":
+                    intent = new Intent(this, HomepageActivity.class);
+                    startActivity(intent);
+                    break;
+                case "Employee":
+                    intent = new Intent(this, EmployeeHomepageActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        }else {
+            intent = new Intent(this, RegistrationActivity.class);
             startActivity(intent);
         }
-        if (user.getEmail().compareTo("test@example.com") == 0) {
-            Intent intent = new Intent(this, HomepageActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(this, EmployeeHomepageActivity.class);
-            startActivity(intent);
-        }
+//        if (user.getEmail().compareTo("test@example.com") == 0) {
+//            Intent intent = new Intent(this, HomepageActivity.class);
+//            startActivity(intent);
+//        } else {
+//            Intent intent = new Intent(this, EmployeeHomepageActivity.class);
+//            startActivity(intent);
+//        }
     }
-    private void writeNewUser(String name, String email, String password, String username) {
+    private void writeNewUser(String name, String email, String password, String username,
+                              String accountType) {
+        //adds user to /users in database
         String key = ref.child("users").push().getKey();
-        User user = new User (name, email, password, username);
+        Registration user = new Registration (name, email, password, username, accountType);
         Map<String, Object> postValues = user.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
