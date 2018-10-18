@@ -8,6 +8,7 @@ public class DonationItem {
     private int value;
     private String category;
 
+
     public DonationItem(String timeStamp, String location, String shortDes, String fullDes, int value,
                     String category){
         this.timeStamp = timeStamp;
