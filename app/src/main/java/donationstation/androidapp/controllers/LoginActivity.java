@@ -24,8 +24,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import donationstation.androidapp.R;
 
@@ -76,9 +79,26 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
+        final String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String tempEmail = email.replace(".", ",");
+                if (dataSnapshot.child(tempEmail).exists()) {
+                    
+                } else {
+                    showProgress(false);
+                    mPasswordView.setError("Username or Password Incorrect");
+                    mPasswordView.requestFocus();
+                    updateUI(null);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
 //        mAuth.signInWithEmailAndPassword(email, password)
 ////                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 ////                    @Override
@@ -142,10 +162,6 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         if (user == null) {
             Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        }
-        if (user.getEmail().compareTo("test@example.com") == 0) {
-         Intent intent = new Intent(this, HomepageActivity.class);
             startActivity(intent);
         } else {
             Intent intent = new Intent(this, EmployeeHomepageActivity.class);
