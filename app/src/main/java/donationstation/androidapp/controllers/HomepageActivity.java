@@ -34,6 +34,8 @@ public class HomepageActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Locations");
 
 
+
+
     }
     public void onLoadButtonPressed(View view) {
         Log.v(MainActivity.TAG, "Pressed the load button");

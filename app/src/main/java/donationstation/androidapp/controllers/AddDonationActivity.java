@@ -3,14 +3,21 @@ package donationstation.androidapp.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import donationstation.androidapp.R;
@@ -18,7 +25,7 @@ import donationstation.androidapp.model.DonationItem;
 
 public class AddDonationActivity extends Activity {
 
-    //objects fetched from xml
+    //Initial Object Instantiation
     private Spinner monthsSpinner;
     private Spinner daysSpinner;
     private Spinner yearsSpinner;
@@ -30,24 +37,15 @@ public class AddDonationActivity extends Activity {
     private EditText valueBox;
     private EditText shortDescriptionBox;
     private EditText fullDescriptionBox;
-
     private DatabaseReference mDatabaseReference;
-
-    //arrays of possible options
-//    String [] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
-//    "Aug", "Sep", "Oct", "Nov", "Dec"};
+    private int numOfItems = 0;
+        //Arrays to populate spinners
     ArrayList<String> months = new ArrayList<>();
     ArrayList<String> days = new ArrayList<>();
     ArrayList<String> years = new ArrayList<>();
     ArrayList<String> hours = new ArrayList<>();
     ArrayList<String> minutes = new ArrayList<>();
     ArrayList<String> amPm = new ArrayList<>();
-
-
-
-
-
-
 
 
     @Override
@@ -68,15 +66,36 @@ public class AddDonationActivity extends Activity {
         fullDescriptionBox = findViewById(R.id.fullDescriptionBox);
         //associating database
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Locations");
-
-
-        //populating arrays
+        //populate location spinner (dynamic)
+        final ArrayList<String> locations = new ArrayList<>();
+        final ArrayAdapter<String> locationAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, locations);
+        locationsSpinner.setAdapter(locationAdapter);
+        mDatabaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String allLocations = dataSnapshot.getKey().toString();
+                locations.add(allLocations);
+                numOfItems++;
+                locationAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
+        //populating static spinners
         populateSpinnerArrays();
-
     }
 
     public void addDonationButtonClicked(View view) {
+        //add the donation
         addDonationToFirebase();
+        //change back to employeeHomepageActivity screen
         Intent intent = new Intent(this, EmployeeHomepageActivity.class);
         startActivity(intent);
     }
@@ -89,31 +108,40 @@ public class AddDonationActivity extends Activity {
         String hour = hoursSpinner.getSelectedItem().toString();
         String minute = minutesSpinner.getSelectedItem().toString();
         String amPm = amPmSpinner.getSelectedItem().toString();
-        String location = locationsSpinner.getSelectedItem().toString();
+        final String location = locationsSpinner.getSelectedItem().toString();
         String category = categoriesSpinner.getSelectedItem().toString();
         String value = valueBox.getText().toString();
         String shortDescription = shortDescriptionBox.getText().toString();
         String fullDescription = fullDescriptionBox.getText().toString();
-
         //translating values to donationItem
         String date = month + "/" + day + "/" + year;
         String time = hour + ":" + minute + " '" + amPm;
         double valueDouble = Double.parseDouble(value);
-
-        //creating location
-        DonationItem addedItem = new DonationItem(date, time, location, category, valueDouble,
+        //creating donation Item
+        final DonationItem addedItem = new DonationItem(date, time, location, category, valueDouble,
                 shortDescription, fullDescription);
+        //fetch number of items and add to inventory
+//        final DatabaseReference itemNumberReference = FirebaseDatabase.getInstance().getReference()
+//                .child("Locations").child(location).child("Inventory").child("size");
+//        itemNumberReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                String numOfItems = dataSnapshot.getValue().toString();
+//                int numOfItemsInt = Integer.parseInt(numOfItems) + 1;
+//                String itemKey = "Item " + numOfItemsInt;
+//                mDatabaseReference.child(location).child("Inventory").child(itemKey)
+//                        .setValue(addedItem);
+//                itemNumberReference.setValue(numOfItemsInt);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
         //adding location to database
-        mDatabaseReference.child("Location B").child("Inventory").child("Item 1").setValue(addedItem);
-
-
-
-
-
-
-
-
+        mDatabaseReference.child(location).child("Inventory").child("Item 1").setValue(addedItem);
     }
 
     private void populateSpinnerArrays() {
@@ -124,7 +152,6 @@ public class AddDonationActivity extends Activity {
         ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, months);
         monthsSpinner.setAdapter(monthAdapter);
-
         // populate day spinner
         //days.add("Select Day");
         for (int i = 1; i <= 31; i++) {
@@ -133,7 +160,6 @@ public class AddDonationActivity extends Activity {
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, days);
         daysSpinner.setAdapter(dayAdapter);
-
         //populate year spinner
         //years.add("Select Year");
         for (int i = 2018; i >= 1990; i--) {
@@ -142,7 +168,6 @@ public class AddDonationActivity extends Activity {
         ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, years);
         yearsSpinner.setAdapter(yearAdapter);
-
         //populate hour spinner
         //hours.add("Select Hour");
         for (int i = 1; i <= 12; i++) {
@@ -151,7 +176,6 @@ public class AddDonationActivity extends Activity {
         ArrayAdapter<String> hourAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, hours);
         hoursSpinner.setAdapter(hourAdapter);
-
         //populate minute spinner
         //minutes.add("Select Minute");
         for (int i = 0; i <= 59; i++) {
@@ -160,21 +184,12 @@ public class AddDonationActivity extends Activity {
         ArrayAdapter<String> minuteAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, minutes);
         minutesSpinner.setAdapter(minuteAdapter);
-
         //populate ampm
         amPm.add("AM");
         amPm.add("PM");
         ArrayAdapter<String> amPmAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, amPm);
         amPmSpinner.setAdapter(amPmAdapter);
-
-        // populate Locations Spinner
-        // THIS NEEDS TO BE FILLED IN WITH LOCATIONS
-        String[] locations = {"Location A", "Location B"};
-        ArrayAdapter<String> locationAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, locations);
-        locationsSpinner.setAdapter(locationAdapter);
-
         // populate Category Spinner
         // THIS NEEDS TO BE FILLED IN WITH CATEGORIES
         String[] categories = {"Cat A", "Cat B"};
