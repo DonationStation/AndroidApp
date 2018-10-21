@@ -17,8 +17,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 import donationstation.androidapp.R;
-import donationstation.androidapp.model.DataItem;
-import donationstation.androidapp.model.SimpleModel;
+import donationstation.androidapp.model.Location;
+import donationstation.androidapp.model.LocationModel;
 
 public class HomepageActivity extends AppCompatActivity {
 
@@ -31,12 +31,12 @@ public class HomepageActivity extends AppCompatActivity {
 
 
     }
-    public void onLoadButtonPressed(View view) {
-        Log.v(MainActivity.TAG, "Pressed the load button");
-        readLocationDataFile();
-        Intent intent = new Intent(this, LocationListActivity.class);
-        startActivity(intent);
-    }
+//    public void onLoadButtonPressed(View view) {
+//        Log.v(MainActivity.TAG, "Pressed the load button");
+//        readLocationDataFile();
+//        Intent intent = new Intent(this, LocationListActivity.class);
+//        startActivity(intent);
+//    }
     public void logout(View view) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
@@ -44,7 +44,7 @@ public class HomepageActivity extends AppCompatActivity {
         startActivity(intent);
     }
     private void readLocationDataFile() {
-        SimpleModel model = SimpleModel.INSTANCE;
+        LocationModel model = LocationModel.INSTANCE;
 
         try {
             //Open a stream on the raw file
@@ -59,7 +59,7 @@ public class HomepageActivity extends AppCompatActivity {
                 Log.d(MainActivity.TAG, line);
                 String[] tokens = line.split(",");
                 int id = Integer.parseInt(tokens[0]);
-                model.addItem(new DataItem(id, tokens[1], tokens[2],
+                model.addItem(new Location(id, tokens[1], tokens[2],
                        tokens[3], tokens[4], tokens[5], tokens[6],
                         tokens[7],tokens[8],tokens[9],tokens[10]));
             }

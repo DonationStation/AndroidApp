@@ -1,11 +1,6 @@
 package donationstation.androidapp.model;
 
-import com.google.firebase.database.Exclude;
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class User extends Registration {
+public class User extends Member {
     public User(String name, String email, String password, String username, String accountType) {
         super(name, email, password, username, accountType);
     }

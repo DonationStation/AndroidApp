@@ -5,25 +5,25 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleModel {
-    public static final SimpleModel INSTANCE = new SimpleModel();
+public class LocationModel {
+    public static final LocationModel INSTANCE = new LocationModel();
 
-    private List<DataItem> items;
+    private List<Location> items;
 
-    private SimpleModel() {
+    private LocationModel() {
         items = new ArrayList<>();
     }
 
-    public void addItem(DataItem item) {
+    public void addItem(Location item) {
         items.add(item);
     }
 
-    public List<DataItem> getItems() {
+    public List<Location> getItems() {
         return items;
     }
 
-    public DataItem findItemByKey(int key) {
-        for (DataItem d : items) {
+    public Location findItemByKey(int key) {
+        for (Location d : items) {
             if (d.getKey() == key) return d;
         }
         Log.d("MYAPP", "Warning - Failed to find key: " + key);
