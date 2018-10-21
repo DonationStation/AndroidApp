@@ -53,6 +53,7 @@ public class Registration {
     public String toString() {
         return "A member named " + name + ". And username " + username;
     }
+
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
