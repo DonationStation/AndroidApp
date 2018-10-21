@@ -40,4 +40,5 @@
     <string name="prompt_value">Value (in dollars)</string>
     <string name="prompt_category">Category</string>
     <string name="addDonation">Add</string>
+    <string name="appbar_scrolling_view_behavior">scrolling_view</string>
 </resources>

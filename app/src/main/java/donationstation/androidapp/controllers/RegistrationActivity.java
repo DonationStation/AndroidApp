@@ -81,24 +81,25 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         if (accountType.equals("Select Account Type")) {
         }
 
-        final FirebaseAuth mAuth = FirebaseAuth.getInstance(); //ref to database
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){ //able to create user
-                            Log.d("success", "createdUserWithEmail");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            writeNewUser(name, email, password, username, accountType);
-                            updateUI(user, accountType); //redirects to corresponding homepage
-                        } else{ //failed at creating user
-                            Log.w("failure", "didNotCreateUserWithEmail", task.getException());
-                            Toast.makeText(RegistrationActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null, null);
-                        }
-                    }
-                });
+//        final FirebaseAuth mAuth = FirebaseAuth.getInstance(); //ref to database
+//        mAuth.createUserWithEmailAndPassword(email, password)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if(task.isSuccessful()){ //able to create user
+//                            Log.d("success", "createdUserWithEmail");
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//                            writeNewUser(name, email, password, username, accountType);
+//                            updateUI(user, accountType); //redirects to corresponding homepage
+//                        } else{ //failed at creating user
+//                            Log.w("failure", "didNotCreateUserWithEmail", task.getException());
+//                            Toast.makeText(RegistrationActivity.this, "Authentication failed.",
+//                                    Toast.LENGTH_SHORT).show();
+//                            updateUI(null, null);
+//                        }
+//                    }
+//                });
+        writeNewUser(name, email, password, username, accountType);
     }
 
     public void main(View view) {
@@ -119,7 +120,7 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
     public void accept(View view) {
         attemptRegistration();
     }
-    private void updateUI(FirebaseUser user, String accountType) {
+    private void updateUI(Registration user, String accountType) {
         Intent intent;
         if (user != null) {
             switch (accountType) {
@@ -163,6 +164,8 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         childUpdates.put("/users/" + key, postValues);
 
         ref.updateChildren(childUpdates);
+        updateUI(user, accountType); //redirects to corresponding homepage
+
     }
 
 }
