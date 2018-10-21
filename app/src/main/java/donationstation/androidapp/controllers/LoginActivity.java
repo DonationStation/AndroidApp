@@ -18,20 +18,19 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import donationstation.androidapp.R;
-import donationstation.androidapp.controllers.HomepageActivity;
-import donationstation.androidapp.controllers.RegistrationActivity;
-import donationstation.androidapp.model.Registration;
 
 
 /**
@@ -44,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,29 +76,49 @@ public class LoginActivity extends AppCompatActivity {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        final FirebaseAuth  mAuth = FirebaseAuth.getInstance();
+
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
+        final String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String tempEmail = email.replace(".", ",");
+                if (dataSnapshot.child(tempEmail).exists()) {
+                    
+                } else {
+                    showProgress(false);
+                    mPasswordView.setError("Username or Password Incorrect");
+                    mPasswordView.requestFocus();
+                    updateUI(null);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                      if (task.isSuccessful()) { //login worked
-                          Log.d("success", "signInWithEmail:success");
-                          FirebaseUser user = mAuth.getCurrentUser(); //grabs current user
-                          updateUI(user);
-                      } else { //login failed so will redirect to main activity
-                          Log.w("failure", "signInWithEmail:failure", task.getException());
-                          Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                  Toast.LENGTH_SHORT).show();
-                          updateUI(null);
-                      }
-                    }
-                });
+            }
+        });
+//        mAuth.signInWithEmailAndPassword(email, password)
+////                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+////                    @Override
+////                    public void onComplete(@NonNull Task<AuthResult> task) {
+////
+////                      if (task.isSuccessful()) { //login worked
+////                          Log.d("success", "signInWithEmail:success");
+////                          FirebaseUser user = mAuth.getCurrentUser(); //grabs current user
+////                          updateUI(user);
+////                      } else { //login failed so will redirect to main activity
+////                          Log.w("failure", "signInWithEmail:failure", task.getException());
+////                          //Toast.makeText(LoginActivity.this, "Authentication failed.",
+////                                  //Toast.LENGTH_SHORT).show();
+////                          showProgress(false);
+////                          mPasswordView.setError("Username or Password Incorrect");
+////                          mPasswordView.requestFocus();
+////                          //updateUI(null);
+////                      }
+////                    }
+////                });
             showProgress(true);
     }
 
@@ -141,11 +161,7 @@ public class LoginActivity extends AppCompatActivity {
     //will need to update this method later so that method directs to corresponding homepage
     private void updateUI(FirebaseUser user) {
         if (user == null) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
-        if (user.getEmail().compareTo("test@example.com") == 0) {
-         Intent intent = new Intent(this, HomepageActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         } else {
             Intent intent = new Intent(this, EmployeeHomepageActivity.class);

@@ -5,12 +5,12 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleModel {
-    public static final SimpleModel INSTANCE = new SimpleModel();
+public class LocationModel {
+    public static final LocationModel INSTANCE = new LocationModel();
 
     private List<Location> items;
 
-    private SimpleModel() {
+    private LocationModel() {
         items = new ArrayList<>();
     }
 
