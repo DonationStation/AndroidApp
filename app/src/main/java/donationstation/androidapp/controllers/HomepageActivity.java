@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,29 +18,27 @@ import java.nio.charset.StandardCharsets;
 
 import donationstation.androidapp.R;
 import donationstation.androidapp.model.Location;
-import donationstation.androidapp.model.SimpleModel;
+import donationstation.androidapp.model.LocationModel;
 
 public class HomepageActivity extends AppCompatActivity {
 
-    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Locations");
 
 
 
 
     }
-    public void onLoadButtonPressed(View view) {
-        Log.v(MainActivity.TAG, "Pressed the load button");
-        readLocationDataFile();
-        Intent intent = new Intent(this, LocationListActivity.class);
-        startActivity(intent);
-    }
+//    public void onLoadButtonPressed(View view) {
+//        Log.v(MainActivity.TAG, "Pressed the load button");
+//        readLocationDataFile();
+//        Intent intent = new Intent(this, LocationListActivity.class);
+//        startActivity(intent);
+//    }
     public void logout(View view) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
@@ -50,7 +46,7 @@ public class HomepageActivity extends AppCompatActivity {
         startActivity(intent);
     }
     private void readLocationDataFile() {
-        SimpleModel model = SimpleModel.INSTANCE;
+        LocationModel model = LocationModel.INSTANCE;
 
         try {
             //Open a stream on the raw file
@@ -65,9 +61,6 @@ public class HomepageActivity extends AppCompatActivity {
                 Log.d(MainActivity.TAG, line);
                 String[] tokens = line.split(",");
                 int id = Integer.parseInt(tokens[0]);
-                Location currLocation = new Location(id, tokens[1], tokens[2], tokens[3],
-                        tokens[4], tokens[5], tokens[6], tokens[7], tokens[8], tokens[9], tokens[10]);
-                mDatabase.child(tokens[1]).setValue(currLocation);
                 model.addItem(new Location(id, tokens[1], tokens[2],
                        tokens[3], tokens[4], tokens[5], tokens[6],
                         tokens[7],tokens[8],tokens[9],tokens[10]));

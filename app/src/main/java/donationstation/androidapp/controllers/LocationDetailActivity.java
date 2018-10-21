@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import donationstation.androidapp.R;
-import donationstation.androidapp.model.SimpleModel;
+import donationstation.androidapp.model.LocationModel;
 
 public class LocationDetailActivity extends AppCompatActivity {
 
@@ -15,7 +15,7 @@ public class LocationDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location_detail);
 
         // Call location data list and create a textview for the list
-        SimpleModel locations = SimpleModel.INSTANCE;
+        LocationModel locations = LocationModel.INSTANCE;
         TextView locationDetail = findViewById(R.id.locationDetail);
 
         // Retrieve the position
