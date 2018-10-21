@@ -1,29 +1,29 @@
 package donationstation.androidapp.model;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Registration {
+public class Member {
     protected String name;
     protected String email;
     protected String password;
     protected String username;
     protected boolean accountState;
     protected String accountType;
-    private static ArrayList<Registration> registrationArray = new ArrayList<>();
+    protected String location;
+    private static ArrayList<Member> memberArray = new ArrayList<>();
 
 
-    public Registration(String name, String email, String password, String username, String accountType) {
+    public Member(String name, String email, String password, String username, String accountType) {
         this.username = username;
         this.name = name;
         this.email = email;
         this.password = password;
         this.accountState = true;
         this.accountType = accountType;
+        this.location = location;
     }
 
     public void setAccount(String acc) {
@@ -37,15 +37,18 @@ public class Registration {
     public String getUsername() { return username; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
+    public void setLocation(String location) { this.location = location; }
+    public String getLocation() {return location; }
 
-    public static ArrayList<Registration> getRegistrationArray() {
-        return registrationArray;
+
+    public static ArrayList<Member> getMemberArray() {
+        return memberArray;
     }
 
     @Override
     public boolean equals(Object o){
-        boolean checkEmail = this.email.equals( ((Registration) o).email);
-        boolean checkUsername = this.username.equals(((Registration) o).username);
+        boolean checkEmail = this.email.equals( ((Member) o).email);
+        boolean checkUsername = this.username.equals(((Member) o).username);
         return checkEmail && checkUsername;
     }
 
@@ -62,6 +65,7 @@ public class Registration {
         result.put("password", password);
         result.put("username", username);
         result.put("accountType", accountType);
+        result.put("location", location);
 
         return result;
     }
