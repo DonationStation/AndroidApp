@@ -1,25 +1,32 @@
 package donationstation.androidapp.model;
 
+import com.google.firebase.database.DatabaseReference;
+
 public class DonationItem {
-    private String timeStamp;
+    private String date;
+    private String time;
     private String location;
     private String shortDes;
     private String fullDes;
-    private int value;
+    private double value;
     private String category;
 
 
-    public DonationItem(String timeStamp, String location, String shortDes, String fullDes, int value,
-                    String category){
-        this.timeStamp = timeStamp;
+
+    public DonationItem(String date, String time, String location, String category,
+                        double value, String shortDes, String fullDes){
+        this.date = date;
+        this.time = time;
         this.location = location;
+        this.category = category;
+        this.value = value;
         this.shortDes = shortDes;
         this.fullDes = fullDes;
-        this.value = value;
-        this.category = category;
     }
 
-    public String getTimeStamp() { return timeStamp; }
+    public String getDate() { return date; }
+
+    public String getTime() {return time;}
 
     public String getLocation() { return location; }
 
@@ -27,11 +34,13 @@ public class DonationItem {
 
     public String getFullDes() { return fullDes; }
 
-    public int getValue() { return value; }
+    public double getValue() { return value; }
 
     public String getCategory() { return category; }
 
-    public void setTimeStamp(String timeStamp) { this.timeStamp = timeStamp; }
+    public void setDate(String date) { this.date = date; }
+
+    public void setTime(String time) { this.time = time; }
 
     public void setLocation(String location) { this.location = location; }
 

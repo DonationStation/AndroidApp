@@ -1,6 +1,6 @@
 package donationstation.androidapp.model;
 
-public class DataItem {
+public class Location {
     private int key;
     private String name;
     private String latitude;
@@ -13,7 +13,7 @@ public class DataItem {
     private String phone;
     private String website;
 
-    public DataItem(int key, String name, String latitude, String longitude, String address, String city, String state,
+    public Location(int key, String name, String latitude, String longitude, String address, String city, String state,
                     String zip, String type, String phone, String website) {
         this.key = key;
         this.name = name;
