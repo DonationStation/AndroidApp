@@ -29,25 +29,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
         // test
     }
-    @Override
-    public void onStart() {
-        super.onStart();
+//    @Override
+//    public void onStart() {
+//        super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            updateUI();
-        }
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if (currentUser != null) {
+//            updateUI();
+//        }
         //readLocationDataFile();
-    }
+//    }
 
     //will need to update this method later so that method directs to corresponding homepage
-    private void updateUI() {
-        Intent intent = new Intent(this, HomepageActivity.class);
-        startActivity(intent);
-    }
+//    private void updateUI() {
+//        Intent intent = new Intent(this, HomepageActivity.class);
+//        startActivity(intent);
+//    }
 
     public void login(View view) {
         Intent intent = new Intent(this, LoginActivity.class);

@@ -15,7 +15,6 @@ public class Member {
     protected String location;
     private static ArrayList<Member> memberArray = new ArrayList<>();
 
-
     public Member(String name, String email, String password, String username, String accountType) {
         this.username = username;
         this.name = name;

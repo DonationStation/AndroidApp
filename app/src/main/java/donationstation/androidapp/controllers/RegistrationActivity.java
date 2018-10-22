@@ -120,20 +120,20 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
     private void updateUI(Member user, String accountType) {
         Intent intent;
         if (user != null) {
-            switch (accountType) {
-                case "Admin":
-                    intent = new Intent(this, HomepageActivity.class);
+            switch (accountType.toLowerCase()) {
+                case "admin":
+                    intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                     break;
-                case "User":
-                    intent = new Intent(this, HomepageActivity.class);
+                case "user":
+                    intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                     break;
-                case "Manager":
-                    intent = new Intent(this, HomepageActivity.class);
+                case "manager":
+                    intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                     break;
-                case "Employee":
+                case "employee":
                     intent = new Intent(this, EmployeeHomepageActivity.class);
                     startActivity(intent);
                     break;

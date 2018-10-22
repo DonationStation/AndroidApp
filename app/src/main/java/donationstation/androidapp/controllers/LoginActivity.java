@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import donationstation.androidapp.R;
+import donationstation.androidapp.model.Member;
 
 
 /**
@@ -80,18 +81,31 @@ public class LoginActivity extends AppCompatActivity {
 
         // Store values at the time of the login attempt.
         final String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        final String password = mPasswordView.getText().toString();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String accountHolder = null;
+                String tempPwd = null;
+                for (DataSnapshot data: dataSnapshot.getChildren()) {
+                    tempPwd = data.child("password").getValue().toString();
+                    accountHolder = data.child("accountType").getValue().toString();
+                }
                 String tempEmail = email.replace(".", ",");
-                if (dataSnapshot.child(tempEmail).exists()) {
-                    
+                if (dataSnapshot.child(tempEmail).exists()){
+                        if(tempPwd.equals(password)) {
+                            updateUI(accountHolder);
+                        } else {
+                            showProgress(false);
+                            mPasswordView.setError("Password Incorrect");
+                            mPasswordView.requestFocus();
+                            //updateUI(null);
+                        }
                 } else {
                     showProgress(false);
-                    mPasswordView.setError("Username or Password Incorrect");
-                    mPasswordView.requestFocus();
-                    updateUI(null);
+                    mEmailView.setError("Username Incorrect");
+                    mEmailView.requestFocus();
+                    //updateUI(null);
                 }
             }
             @Override
@@ -159,15 +173,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //will need to update this method later so that method directs to corresponding homepage
-    private void updateUI(FirebaseUser user) {
-        if (user == null) {
+    private void updateUI(String accountType) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-        } else {
-            Intent intent = new Intent(this, EmployeeHomepageActivity.class);
-            startActivity(intent);
-        }
-
+       
     }
     public void cancel(View view) {
         Intent intent = new Intent(this, MainActivity.class);
