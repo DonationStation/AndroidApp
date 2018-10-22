@@ -85,17 +85,17 @@ public class LoginActivity extends AppCompatActivity {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String accountHolder = null;
+                String member = null;
                 String tempPwd = null;
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
-                    accountHolder = data.child("accountType").getValue().toString();
+                    //accountHolder = data.child("accountType").getValue().toString();
                     tempPwd = data.child("password").getValue().toString();
                 }
                 String tempEmail = email.replace(".", ",");
                 if (dataSnapshot.child(tempEmail).exists()){ //email exists in db
                         if(tempPwd.equals(password)) { //checks that password is correct otherwise error
-                            Log.e("MY_APP", accountHolder);
-                            updateUI(accountHolder);
+                            member = dataSnapshot.child(tempEmail).child("accountType").getValue().toString();
+                            updateUI(member);
                         } else {
                             showProgress(false);
                             mPasswordView.setError("Password Incorrect");
@@ -153,12 +153,29 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //will need to update this method later so that method directs to corresponding homepage
-    private void updateUI(String accountType) {
-        if (accountType != null) {
-                Intent intent = new Intent(this, EmployeeHomepageActivity.class);
-                startActivity(intent);
+    private void updateUI(String member) {
+        Intent intent;
+        if (member != null) {
+            switch (member.toLowerCase()) {
+                case "admin":
+                    intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    break;
+                case "user":
+                    intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    break;
+                case "manager":
+                    intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    break;
+                case "employee":
+                    intent = new Intent(this, EmployeeHomepageActivity.class);
+                    startActivity(intent);
+                    break;
+            }
         } else {
-            Intent intent = new Intent(this, LoginActivity.class);
+            intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
     }
