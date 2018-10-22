@@ -154,14 +154,13 @@ public class LoginActivity extends AppCompatActivity {
 
     //will need to update this method later so that method directs to corresponding homepage
     private void updateUI(String accountType) {
-            if (accountType.equalsIgnoreCase("employee")) {
+        if (accountType != null) {
                 Intent intent = new Intent(this, EmployeeHomepageActivity.class);
                 startActivity(intent);
         } else {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
-
     }
     public void cancel(View view) {
         Intent intent = new Intent(this, MainActivity.class);
