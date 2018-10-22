@@ -88,24 +88,24 @@ public class LoginActivity extends AppCompatActivity {
                 String accountHolder = null;
                 String tempPwd = null;
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
-                    tempPwd = data.child("password").getValue().toString();
                     accountHolder = data.child("accountType").getValue().toString();
+                    tempPwd = data.child("password").getValue().toString();
                 }
                 String tempEmail = email.replace(".", ",");
-                if (dataSnapshot.child(tempEmail).exists()){
-                        if(tempPwd.equals(password)) {
+                if (dataSnapshot.child(tempEmail).exists()){ //email exists in db
+                        if(tempPwd.equals(password)) { //checks that password is correct otherwise error
+                            Log.e("MY_APP", accountHolder);
                             updateUI(accountHolder);
                         } else {
                             showProgress(false);
                             mPasswordView.setError("Password Incorrect");
                             mPasswordView.requestFocus();
-                            //updateUI(null);
                         }
-                } else {
+                } else { //email not found
                     showProgress(false);
                     mEmailView.setError("Username Incorrect");
                     mEmailView.requestFocus();
-                    //updateUI(null);
+
                 }
             }
             @Override
@@ -113,26 +113,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-//        mAuth.signInWithEmailAndPassword(email, password)
-////                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-////                    @Override
-////                    public void onComplete(@NonNull Task<AuthResult> task) {
-////
-////                      if (task.isSuccessful()) { //login worked
-////                          Log.d("success", "signInWithEmail:success");
-////                          FirebaseUser user = mAuth.getCurrentUser(); //grabs current user
-////                          updateUI(user);
-////                      } else { //login failed so will redirect to main activity
-////                          Log.w("failure", "signInWithEmail:failure", task.getException());
-////                          //Toast.makeText(LoginActivity.this, "Authentication failed.",
-////                                  //Toast.LENGTH_SHORT).show();
-////                          showProgress(false);
-////                          mPasswordView.setError("Username or Password Incorrect");
-////                          mPasswordView.requestFocus();
-////                          //updateUI(null);
-////                      }
-////                    }
-////                });
             showProgress(true);
     }
 
@@ -174,9 +154,14 @@ public class LoginActivity extends AppCompatActivity {
 
     //will need to update this method later so that method directs to corresponding homepage
     private void updateUI(String accountType) {
+            if (accountType.equalsIgnoreCase("employee")) {
+                Intent intent = new Intent(this, EmployeeHomepageActivity.class);
+                startActivity(intent);
+        } else {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-       
+        }
+
     }
     public void cancel(View view) {
         Intent intent = new Intent(this, MainActivity.class);
