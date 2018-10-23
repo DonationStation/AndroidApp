@@ -120,28 +120,24 @@ public class AddDonationActivity extends Activity {
         //creating donation Item
         final DonationItem addedItem = new DonationItem(date, time, location, category, valueDouble,
                 shortDescription, fullDescription);
-        //fetch number of items and add to inventory
-//        final DatabaseReference itemNumberReference = FirebaseDatabase.getInstance().getReference()
-//                .child("Locations").child(location).child("Inventory").child("size");
-//        itemNumberReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                String numOfItems = dataSnapshot.getValue().toString();
-//                int numOfItemsInt = Integer.parseInt(numOfItems) + 1;
-//                String itemKey = "Item " + numOfItemsInt;
-//                mDatabaseReference.child(location).child("Inventory").child(itemKey)
-//                        .setValue(addedItem);
-//                itemNumberReference.setValue(numOfItemsInt);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+        //Inputing newly donated item to right spot in inventory
+        final DatabaseReference inputItemReference = mDatabaseReference.child(location).child("Inventory");
+        inputItemReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String currentInventorySize = dataSnapshot.child("size").getValue().toString();
+                Integer updatedInvSize = Integer.parseInt(currentInventorySize) + 1;
+                String itemKey = "Item " + updatedInvSize;
+                inputItemReference.child(itemKey).setValue(addedItem);
+                inputItemReference.child("size").setValue(updatedInvSize);
 
-        //adding location to database
-        mDatabaseReference.child(location).child("Inventory").child("Item 1").setValue(addedItem);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void populateSpinnerArrays() {
