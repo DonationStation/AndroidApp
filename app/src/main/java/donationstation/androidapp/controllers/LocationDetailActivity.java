@@ -88,7 +88,7 @@ public class LocationDetailActivity extends AppCompatActivity {
                     zip = dataSnapshot.getValue().toString();
                 }
 
-                mDetailView.setText("Location Name: " + keyString + "\n" +
+                mDetailView.setText("Location Name: " + name + "\n" +
                         "address: " + address + "\n" +
                         "city: " + city + "\n" +
                         "key: " + key + "\n" +
