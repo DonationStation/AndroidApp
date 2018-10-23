@@ -35,6 +35,7 @@ public class LocationListActivity extends AppCompatActivity {
     RecyclerView myRecyclerView;
     MyAdapter adapter;
     List<String> listData;
+    List<String> onlyNameData;
     FirebaseDatabase FDB;
     DatabaseReference DBR;
 
@@ -51,6 +52,7 @@ public class LocationListActivity extends AppCompatActivity {
         myRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
 
         listData = new ArrayList<>();
+        onlyNameData = new ArrayList<>();
         adapter = new MyAdapter(listData);
         FDB = FirebaseDatabase.getInstance();
         GetDataFirebase();
@@ -62,8 +64,9 @@ public class LocationListActivity extends AppCompatActivity {
         DBR.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String name = dataSnapshot.child("Name").getValue().toString();
+                String name = dataSnapshot.getKey().toString();
                 listData.add(name);
+                onlyNameData.add(dataSnapshot.child("Name").getValue().toString());
                 myRecyclerView.setAdapter(adapter);
             }
 
@@ -104,7 +107,7 @@ public class LocationListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
-            String title = listArray.get(position);
+            String title = onlyNameData.get(position);
             holder.MyText.setText(title);
             final String currentKey = listData.get(position);
 

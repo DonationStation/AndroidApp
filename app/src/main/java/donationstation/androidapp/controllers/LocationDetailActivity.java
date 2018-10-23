@@ -51,21 +51,20 @@ public class LocationDetailActivity extends AppCompatActivity {
             keyString = bundle.getString("key");
         }
 
-        mDetailView = findViewById(R.id.locationDetail);
+        mDetailView = findViewById(R.id.locationDetailss);
         FDB = FirebaseDatabase.getInstance();
         //final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, info);
         GetDataFirebase();
     }
 
     void GetDataFirebase() {
-        DBR = FDB.getReference().child("LocationsJSON").child(keyString);
+        DBR = FDB.getReference().child("LocationJSON").child(keyString);
 
         DBR.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                System.out.println("i'm here");
 
-                if (dataSnapshot.getKey().toString().equalsIgnoreCase(" street address")) {
+                if (dataSnapshot.getKey().toString().equalsIgnoreCase("street address")) {
                     address = dataSnapshot.getValue().toString();
                 } else if (dataSnapshot.getKey().toString().equalsIgnoreCase("city")) {
                     city = dataSnapshot.getValue().toString();
