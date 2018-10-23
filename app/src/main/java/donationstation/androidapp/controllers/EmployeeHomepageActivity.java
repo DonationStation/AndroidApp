@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import donationstation.androidapp.R;
 
@@ -17,8 +19,7 @@ public class EmployeeHomepageActivity extends Activity {
         setContentView(R.layout.activity_employee_homepage);
     }
     public void logout(View view) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
+        FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

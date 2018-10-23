@@ -35,13 +35,16 @@
         <activity android:name=".controllers.LocationDetailActivity" />
         <activity
             android:name=".controllers.EmployeeHomepageActivity"
-            android:label="@string/title_activity_employee_homepage"></activity>
+            android:label="@string/title_activity_employee_homepage" />
         <activity
             android:name=".controllers.AddDonationActivity"
-            android:label="@string/title_activity_employee_addDonation"></activity>
+            android:label="@string/title_activity_employee_addDonation" />
         <activity
             android:name=".controllers.DonationListActivity"
-            android:label="@string/title_activity_employee_viewDonation"></activity>
+            android:label="@string/title_activity_employee_viewDonation" />
+        <activity
+            android:name=".controllers.UserHomepageActivity"
+            android:label="@string/title_activity_user_homepage"></activity>
     </application>
 
 </manifest>

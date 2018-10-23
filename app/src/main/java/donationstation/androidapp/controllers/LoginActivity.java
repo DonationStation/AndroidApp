@@ -157,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case "user":
-                    intent = new Intent(this, MainActivity.class);
+                    intent = new Intent(this, UserHomepageActivity.class);
                     startActivity(intent);
                     break;
                 case "manager":
