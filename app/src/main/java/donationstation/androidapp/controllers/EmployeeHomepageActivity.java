@@ -26,8 +26,8 @@ public class EmployeeHomepageActivity extends Activity {
         Intent intent = new Intent(this, AddDonationActivity.class);
         startActivity(intent);
     }
-//    public void viewDonations(View view) {
-//        Intent intent = new Intent(this, DonationListActivity.class);
-//        startActivity(intent);
-//    }
+    public void viewDonations(View view) {
+        Intent intent = new Intent(this, DonationListActivity.class);
+        startActivity(intent);
+    }
 }
