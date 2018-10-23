@@ -6,4 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".controllers.UserHomepageActivity">
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="257dp"
+        android:layout_marginTop="485dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="34dp"
+        android:onClick="logout"
+        android:text="@string/action_logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="147dp"
+        android:layout_marginTop="258dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginBottom="261dp"
+        android:onClick="viewLocations"
+        android:text="@string/view_locations"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
