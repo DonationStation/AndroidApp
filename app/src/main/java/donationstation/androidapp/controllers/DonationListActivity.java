@@ -61,7 +61,7 @@ public class DonationListActivity extends AppCompatActivity {
         DBR.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String data = dataSnapshot.getKey().toString();
+                String data = dataSnapshot.getKey();
                 listData.add(data);
                 myRecyclerView.setAdapter(adapter);
             }
