@@ -6,19 +6,17 @@ import android.app.Activity;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import donationstation.androidapp.R;
 
-public class EmployeeHomepageActivity extends Activity {
+public class UserHomepageActivity extends Activity {
 
     private String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_employee_homepage);
+        setContentView(R.layout.activity_user_homepage);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) {
@@ -28,15 +26,12 @@ public class EmployeeHomepageActivity extends Activity {
         }
     }
     public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-    public void addDonations(View view) {
-        Intent intent = new Intent(this, AddDonationActivity.class);
-        startActivity(intent);
-    }
-    public void viewDonations(View view) {
+    public void viewLocations(View view) {
         Intent intent = new Intent(this, LocationListActivity.class);
         intent.putExtra("userType", userType);
         startActivity(intent);

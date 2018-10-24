@@ -13,6 +13,9 @@ public class Location {
     private String phone;
     private String website;
 
+    public Location() {
+
+    }
     public Location(int key, String name, String latitude, String longitude, String address, String city, String state,
                     String zip, String type, String phone, String website) {
         this.key = key;

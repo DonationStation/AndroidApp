@@ -149,23 +149,28 @@ public class LoginActivity extends AppCompatActivity {
 
     //will need to update this method later so that method directs to corresponding homepage
     private void updateUI(String member) {
+        final String userType = member; // pass the current userType to the next page
         Intent intent;
         if (member != null) {
             switch (member.toLowerCase()) {
                 case "admin":
                     intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("userType", userType);
                     startActivity(intent);
                     break;
                 case "user":
-                    intent = new Intent(this, MainActivity.class);
+                    intent = new Intent(this, UserHomepageActivity.class);
+                    intent.putExtra("userType", userType);
                     startActivity(intent);
                     break;
                 case "manager":
                     intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("userType", userType);
                     startActivity(intent);
                     break;
                 case "employee":
                     intent = new Intent(this, EmployeeHomepageActivity.class);
+                    intent.putExtra("userType", userType);
                     startActivity(intent);
                     break;
             }

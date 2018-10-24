@@ -10,7 +10,7 @@ public class LocationModel {
 
     private List<Location> items;
 
-    private LocationModel() {
+    public LocationModel() {
         items = new ArrayList<>();
     }
 
