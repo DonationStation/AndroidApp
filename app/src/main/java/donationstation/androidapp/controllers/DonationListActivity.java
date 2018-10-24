@@ -31,16 +31,28 @@ import donationstation.androidapp.R;
 
 public class DonationListActivity extends AppCompatActivity {
 
-    RecyclerView myRecyclerView;
-    MyAdapter adapter;
-    List<String> listData;
-    FirebaseDatabase FDB;
-    DatabaseReference DBR;
+    private RecyclerView myRecyclerView;
+    private MyAdapter adapter;
+    private List<String> listData;
+    private FirebaseDatabase FDB;
+    private DatabaseReference DBR;
+    private String keyString;
+    private String locationName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation_list);
+
+        // Retrieve the current userType
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) {
+            keyString = null;
+        } else {
+            keyString = bundle.getString("key");
+        }
+        locationName = keyString;
 
         myRecyclerView = (RecyclerView) findViewById(R.id.donationLists);
         myRecyclerView.setHasFixedSize(true);
@@ -56,13 +68,15 @@ public class DonationListActivity extends AppCompatActivity {
     }
 
     void GetDataFirebase() {
-        DBR = FDB.getReference("Locations");
+        DBR = FDB.getReference("Locations").child(keyString).child("Inventory");
 
         DBR.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 String data = dataSnapshot.getKey();
-                listData.add(data);
+                if (!data.equals("size")) { // Exclude displaying "size" category
+                    listData.add(data);
+                }
                 myRecyclerView.setAdapter(adapter);
             }
 
@@ -106,6 +120,7 @@ public class DonationListActivity extends AppCompatActivity {
             String title = listArray.get(position);
             holder.MyText.setText(title);
             final String currentKey = listData.get(position);
+            final String locationNameKey = locationName;
 
             // When click each item
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +129,7 @@ public class DonationListActivity extends AppCompatActivity {
                     Intent intent = new Intent(DonationListActivity.this, DonationDetailActivity.class);
                     // Get ready for passing position to the next activity
                     intent.putExtra("key", currentKey);
+                    intent.putExtra("locationName", locationNameKey);
                     startActivity(intent);
                 }
             });

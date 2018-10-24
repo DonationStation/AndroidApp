@@ -11,10 +11,19 @@ import donationstation.androidapp.R;
 
 public class UserHomepageActivity extends Activity {
 
+    private String userType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_homepage);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) {
+            userType = null;
+        } else {
+            userType = bundle.getString("userType");
+        }
     }
     public void logout(View view) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -24,6 +33,7 @@ public class UserHomepageActivity extends Activity {
     }
     public void viewLocations(View view) {
         Intent intent = new Intent(this, LocationListActivity.class);
+        intent.putExtra("userType", userType);
         startActivity(intent);
     }
 }

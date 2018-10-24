@@ -23,89 +23,68 @@ public class DonationDetailActivity extends AppCompatActivity {
     private DatabaseReference DBR;
     private TextView mDetailView;
     private String keyString;
+    private String locationName;
 
     private ArrayList<String> info = new ArrayList<>();
-    private String address = "null";
-    private String city = "null";
-    private String key = "null";
-    private String latitude = "null";
-    private String longitude = "null";
-    private String name = "null";
-    private String phone = "null";
-    private String state = "null";
-    private String type = "null";
-    private String website = "null";
-    private String zip = "null";
+    private String category = "null";
+    private String date = "null";
+    private String fullDes = "null";
+    private String location = "null";
+    private String shortDes = "null";
+    private String time = "null";
+    private String value = "null";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation_detail);
 
-
-        // Retrieve the position
+        // Retrieve the passed data
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) {
             keyString = null;
+            locationName = null;
         } else {
             keyString = bundle.getString("key");
+            locationName = bundle.getString("locationName");
         }
-
 
         mDetailView = findViewById(R.id.name_view);
         FDB = FirebaseDatabase.getInstance();
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, info);
         GetDataFirebase();
-
-
-
-
     }
 
     void GetDataFirebase() {
-        DBR = FDB.getReference().child("Locations").child(keyString);
+        DBR = FDB.getReference().child("Locations").child(locationName).child("Inventory").child(keyString);
 
         DBR.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-
-                if (dataSnapshot.getKey().toString().equals("address")) {
-                    address = dataSnapshot.getValue().toString();
-                } else if (dataSnapshot.getKey().toString().equals("city")) {
-                    city = dataSnapshot.getValue().toString();
-                } else if (dataSnapshot.getKey().toString().equals("key")) {
-                    key = dataSnapshot.getValue().toString();
-                } else if (dataSnapshot.getKey().toString().equals("latitude")) {
-                    latitude = dataSnapshot.getValue().toString();
-                } else if (dataSnapshot.getKey().toString().equals("longitude")) {
-                    longitude = dataSnapshot.getValue().toString();
-                } else if (dataSnapshot.getKey().toString().equals("name")) {
-                    name = dataSnapshot.getValue().toString();
-                } else if (dataSnapshot.getKey().toString().equals("phone")) {
-                    phone = dataSnapshot.getValue().toString();
-                } else if (dataSnapshot.getKey().toString().equals("state")) {
-                    state = dataSnapshot.getValue().toString();
-                } else if (dataSnapshot.getKey().toString().equals("type")) {
-                    type = dataSnapshot.getValue().toString();
-                } else if (dataSnapshot.getKey().toString().equals("website")) {
-                    website = dataSnapshot.getValue().toString();
-                } else if (dataSnapshot.getKey().toString().equals("zip")) {
-                    zip = dataSnapshot.getValue().toString();
+                if (dataSnapshot.getKey().toString().equals("category")) {
+                    category = dataSnapshot.getValue().toString();
+                } else if (dataSnapshot.getKey().toString().equals("date")) {
+                    date = dataSnapshot.getValue().toString();
+                } else if (dataSnapshot.getKey().toString().equals("fullDes")) {
+                    fullDes = dataSnapshot.getValue().toString();
+                } else if (dataSnapshot.getKey().toString().equals("location")) {
+                    location = dataSnapshot.getValue().toString();
+                } else if (dataSnapshot.getKey().toString().equals("shortDes")) {
+                    shortDes = dataSnapshot.getValue().toString();
+                } else if (dataSnapshot.getKey().toString().equals("time")) {
+                    time = dataSnapshot.getValue().toString();
+                } else if (dataSnapshot.getKey().toString().equals("value")) {
+                    value = dataSnapshot.getValue().toString();
                 }
 
-                mDetailView.setText("Location Name: " + keyString + "\n" +
-                        "address: " + address + "\n" +
-                        "city: " + city + "\n" +
-                        "key: " + key + "\n" +
-                        "latitude: " + latitude + "\n" +
-                        "longitude: " + longitude + "\n" +
-                        "name: " + name + "\n" +
-                        "phone: " + phone + "\n" +
-                        "state: " + state + "\n" +
-                        "type: " + type + "\n" +
-                        "website: " + website + "\n" +
-                        "zip: " + zip + "\n");
+                mDetailView.setText("Item Name: " + keyString + "\n" +
+                        "category: " + category + "\n" +
+                        "date: " + date + "\n" +
+                        "location: " + location + "\n" +
+                        "shortDes: " + shortDes + "\n" +
+                        "fullDes: " + fullDes + "\n" +
+                        "value: " + value + "\n" +
+                        "time: " + time + "\n");
             }
 
             @Override

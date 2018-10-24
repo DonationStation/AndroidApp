@@ -32,17 +32,26 @@ import donationstation.androidapp.R;
 
 public class LocationListActivity extends AppCompatActivity {
 
-    RecyclerView myRecyclerView;
-    MyAdapter adapter;
-    List<String> listData;
-    List<String> onlyNameData;
-    FirebaseDatabase FDB;
-    DatabaseReference DBR;
+    private RecyclerView myRecyclerView;
+    private MyAdapter adapter;
+    private List<String> listData;
+    private List<String> onlyNameData;
+    private FirebaseDatabase FDB;
+    private DatabaseReference DBR;
+    private String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_list);
+
+        // Retrieve userType from the previous page
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) {
+            userType = null;
+        } else {
+            userType = bundle.getString("userType");
+        }
 
         myRecyclerView = (RecyclerView) findViewById(R.id.locationLists);
         myRecyclerView.setHasFixedSize(true);
@@ -110,16 +119,24 @@ public class LocationListActivity extends AppCompatActivity {
             String title = onlyNameData.get(position);
             holder.MyText.setText(title);
             final String currentKey = listData.get(position);
-
+            final String currentNameKey = onlyNameData.get(position);
 
             // When click each item
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(LocationListActivity.this, LocationDetailActivity.class);
-                    // Get ready for passing position to the next activity
-                    intent.putExtra("key", currentKey);
-                    startActivity(intent);
+                    switch (userType) {
+                        case "User": // When the current user is a user
+                            Intent intent1 = new Intent(LocationListActivity.this, LocationDetailActivity.class);
+                            intent1.putExtra("key", currentKey);
+                            startActivity(intent1);
+                            break;
+                        case "Employee": // When the current user is an employee
+                            Intent intent2 = new Intent(LocationListActivity.this, DonationListActivity.class);
+                            intent2.putExtra("key", currentNameKey);
+                            startActivity(intent2);
+                            break;
+                    }
                 }
             });
         }
