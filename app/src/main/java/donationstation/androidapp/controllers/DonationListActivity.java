@@ -43,6 +43,8 @@ public class DonationListActivity extends AppCompatActivity {
     private String locationName;
     private ArrayList<String> locationSearch, categorySearch;
     private String nameSearch;
+    private ArrayList<String[]> donationDetailInfo = new ArrayList<>();
+    private boolean isUser;
 
 
     @Override
@@ -81,6 +83,7 @@ public class DonationListActivity extends AppCompatActivity {
     void GetDataFirebase() {
         //For users
         if (keyString == null) {
+            isUser = true;
             DBR = FDB.getReference("Locations");
             DBR.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -91,12 +94,17 @@ public class DonationListActivity extends AppCompatActivity {
                                 if (!item.getKey().toString().equals("size")) {
                                     String category = item.child("category").getValue().toString();
                                     String shortDes = item.child("shortDes").getValue().toString();
-
+                                    String locationKey = locations.getKey().toString();
+                                    String itemKey = item.getKey().toString();
                                     if (categorySearch.contains(category)) {
                                         if (nameSearch.equals("")) {
+                                            String[] detailInfo = {locationKey, itemKey};
+                                            donationDetailInfo.add(detailInfo);
                                             listData.add(shortDes);
                                         } else {
                                             if (nameSearch.equals(shortDes)) {
+                                                String[] detailInfo = {locationKey, itemKey};
+                                                donationDetailInfo.add(detailInfo);
                                                 listData.add(shortDes);
                                             }
                                         }
@@ -106,7 +114,9 @@ public class DonationListActivity extends AppCompatActivity {
                         }
                     }
                     if (listData.isEmpty()) {
-                        listData.add("Nothing");
+                        listData.add("No result found. Try another search.");
+                        String[] nothingInfo = {"Nothing", "Nothing"};
+                        donationDetailInfo.add(nothingInfo);
                     }
                     myRecyclerView.setAdapter(adapter);
                 }
@@ -172,8 +182,16 @@ public class DonationListActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
             String title = listArray.get(position);
             holder.MyText.setText(title);
-            final String currentKey = listData.get(position);
-            final String locationNameKey = locationName;
+            final String currentKey;
+            final String locationNameKey;
+            if (isUser) {
+                currentKey = donationDetailInfo.get(position)[1];
+                locationNameKey = donationDetailInfo.get(position)[0];
+
+            } else {
+                currentKey = listData.get(position);
+                locationNameKey = locationName;
+            }
 
             // When click each item
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
