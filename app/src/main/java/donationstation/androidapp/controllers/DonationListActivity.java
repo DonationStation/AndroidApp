@@ -4,6 +4,7 @@ package donationstation.androidapp.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -22,11 +23,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import donationstation.androidapp.R;
+import donationstation.androidapp.model.DonationItem;
 
 
 public class DonationListActivity extends AppCompatActivity {
@@ -38,6 +41,8 @@ public class DonationListActivity extends AppCompatActivity {
     private DatabaseReference DBR;
     private String keyString;
     private String locationName;
+    private ArrayList<String> locationSearch, categorySearch;
+    private String nameSearch;
 
 
     @Override
@@ -49,8 +54,14 @@ public class DonationListActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) {
             keyString = null;
+            locationSearch = null;
+            categorySearch = null;
+            nameSearch = null;
         } else {
             keyString = bundle.getString("key");
+            locationSearch = bundle.getStringArrayList("locationSearch");
+            categorySearch = bundle.getStringArrayList("categorySearch");
+            nameSearch = bundle.getString("nameSearch");
         }
         locationName = keyString;
 
@@ -68,38 +79,80 @@ public class DonationListActivity extends AppCompatActivity {
     }
 
     void GetDataFirebase() {
-        DBR = FDB.getReference("Locations").child(keyString).child("Inventory");
+        //For users
+        if (keyString == null) {
+            DBR = FDB.getReference("Locations");
+            DBR.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot locations : dataSnapshot.getChildren()) {
+                        if (locationSearch.contains(locations.getKey().toString())) {
+                            for (DataSnapshot item : locations.child("Inventory").getChildren()) {
+                                if (!item.getKey().toString().equals("size")) {
+                                    String category = item.child("category").getValue().toString();
+                                    String shortDes = item.child("shortDes").getValue().toString();
 
-        DBR.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String data = dataSnapshot.getKey();
-                if (!data.equals("size")) { // Exclude displaying "size" category
-                    listData.add(data);
+                                    if (categorySearch.contains(category)) {
+                                        if (nameSearch.equals("")) {
+                                            listData.add(shortDes);
+                                        } else {
+                                            if (nameSearch.equals(shortDes)) {
+                                                listData.add(shortDes);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (listData.isEmpty()) {
+                        listData.add("Nothing");
+                    }
+                    myRecyclerView.setAdapter(adapter);
                 }
-                myRecyclerView.setAdapter(adapter);
-            }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
+                }
+            });
+//
+        } else { //For Employees
+            DBR = FDB.getReference("Locations").child(keyString).child("Inventory");
+            DBR.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    String data = dataSnapshot.getKey();
+                    if (!data.equals("size")) { // Exclude displaying "size" category
+                        listData.add(data);
+                    }
+                    myRecyclerView.setAdapter(adapter);
+                }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+                }
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-            }
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
-        });
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+
+
     }
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {

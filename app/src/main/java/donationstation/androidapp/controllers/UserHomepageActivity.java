@@ -36,4 +36,8 @@ public class UserHomepageActivity extends Activity {
         intent.putExtra("userType", userType);
         startActivity(intent);
     }
+    public void searchItems(View view) {
+        Intent intent = new Intent(this, UserItemSearchActivity.class);
+        startActivity(intent);
+    }
 }

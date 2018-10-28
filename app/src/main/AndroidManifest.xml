@@ -43,7 +43,8 @@
         <activity android:name=".controllers.DonationDetailActivity" />
         <activity
             android:name=".controllers.UserHomepageActivity"
-            android:label="@string/title_activity_user_homepage"></activity>
+            android:label="@string/title_activity_user_homepage" />
+        <activity android:name=".controllers.UserItemSearchActivity"></activity>
     </application>
 
 </manifest>
