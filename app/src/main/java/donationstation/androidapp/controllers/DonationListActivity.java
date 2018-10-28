@@ -43,7 +43,7 @@ public class DonationListActivity extends AppCompatActivity {
     private String locationName;
     private ArrayList<String> locationSearch, categorySearch;
     private String nameSearch;
-    private ArrayList<String[]> donationDetailInfo = new ArrayList<>();
+    private ArrayList<String[]> donationDetailInfo;
     private boolean isUser;
 
 
@@ -75,49 +75,69 @@ public class DonationListActivity extends AppCompatActivity {
         myRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
 
         listData = new ArrayList<>();
+        donationDetailInfo = new ArrayList<>();
         adapter = new MyAdapter(listData);
         FDB = FirebaseDatabase.getInstance();
         GetDataFirebase();
     }
 
     void GetDataFirebase() {
-        //For users
+        // For users
         if (keyString == null) {
-            isUser = true;
+            isUser = true; // a var to differentiate whether the current user is an user or employee
             DBR = FDB.getReference("Locations");
             DBR.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot locations : dataSnapshot.getChildren()) {
-                        if (locationSearch.contains(locations.getKey().toString())) {
-                            for (DataSnapshot item : locations.child("Inventory").getChildren()) {
-                                if (!item.getKey().toString().equals("size")) {
-                                    String category = item.child("category").getValue().toString();
-                                    String shortDes = item.child("shortDes").getValue().toString();
-                                    String locationKey = locations.getKey().toString();
-                                    String itemKey = item.getKey().toString();
-                                    if (categorySearch.contains(category)) {
-                                        if (nameSearch.equals("")) {
+                    // Filter by passed values.
+                    for (DataSnapshot location : dataSnapshot.getChildren()) { // Iterate all locations under 'Location' from Firebase.
+                                                                               // location: AFD Station 4, Boys and Girls Club WW Woolfolk, ...
+
+                        if (locationSearch.contains(location.getKey().toString())) { // location Filter
+                                                                                     // locationSearch: [AFD Station4], [D&D Convenience Store], ... [Pavilion Of Hope Inc], or [A, D, ... P] which is all.
+
+                            for (DataSnapshot item : location.child("Inventory").getChildren()) { // Iterate all items under 'Inventory' from a specific location.
+                                                                                                  // item: Item1, Item2, ... (except. size)
+
+                                if (!item.getKey().toString().equals("size")) { // if statement for not handling with "size" item.
+                                    // Variables will be used for remembering.
+                                    String category = item.child("category").getValue().toString(); // for category (Clothes, Other, ...)
+                                    String shortDes = item.child("shortDes").getValue().toString(); // for itemName (e.g. shortDescription)
+                                    String locationKey = location.getKey().toString(); // each location Name.
+                                    String itemKey = item.getKey().toString(); // each item Name.
+
+                                    if (categorySearch.contains(category)) { // category Filter
+                                                                             // categorySearch: [Clothes], ... [Other], [Clothes, ... Other]
+
+                                        // name Filter
+                                        if (nameSearch.equals("")) { // if user didn't type anything on name text View
+                                            // Get ready for populating every item in there.
+                                            listData.add(shortDes);
                                             String[] detailInfo = {locationKey, itemKey};
                                             donationDetailInfo.add(detailInfo);
-                                            listData.add(shortDes);
-                                        } else {
-                                            if (nameSearch.equals(shortDes)) {
+                                        } else { // if user typed something
+                                            if (nameSearch.equals(shortDes)) { // Get ready for populating only the item that has the same shortDes with shortDes.
+                                                listData.add(shortDes);
                                                 String[] detailInfo = {locationKey, itemKey};
                                                 donationDetailInfo.add(detailInfo);
-                                                listData.add(shortDes);
                                             }
                                         }
+                                        // listData: an ArrayList<String> of each item's shortDes that is satisfied with the condition above (ex. [test, final, ...])
+                                        // donationDetailInfo: an ArrayList<String[]> of [locationKey, itemKey] as respective to listData order (ex. [[AFD Station 4, Item1])
+                                        // We need donationDetailInfo for remembering and retrieving a specific item on DetailActivity.
                                     }
                                 }
                             }
-                        }
+                        } // We don't need to consider else case because locationSearch contains all cases.
+                          // If you want to put else statement here, just implement a code of dealing with error.
                     }
-                    if (listData.isEmpty()) {
+                    if (listData.isEmpty()) { // if there is no any item that is satisfied with the conditions an user has typed.
+                        // Create a dummy listData and donationDetailInfo so that recycler View shows "Nothing found!"
                         listData.add("No result found. Try another search.");
                         String[] nothingInfo = {"Nothing", "Nothing"};
                         donationDetailInfo.add(nothingInfo);
                     }
+
                     myRecyclerView.setAdapter(adapter);
                 }
 
@@ -126,8 +146,7 @@ public class DonationListActivity extends AppCompatActivity {
 
                 }
             });
-//
-        } else { //For Employees
+        } else { // For Employees
             DBR = FDB.getReference("Locations").child(keyString).child("Inventory");
             DBR.addChildEventListener(new ChildEventListener() {
                 @Override
@@ -184,11 +203,12 @@ public class DonationListActivity extends AppCompatActivity {
             holder.MyText.setText(title);
             final String currentKey;
             final String locationNameKey;
-            if (isUser) {
+
+            // Set currentKey and locationNameKey in terms of the current user type.
+            if (isUser) { // When it's an user.
                 currentKey = donationDetailInfo.get(position)[1];
                 locationNameKey = donationDetailInfo.get(position)[0];
-
-            } else {
+            } else { // When it's an employee.
                 currentKey = listData.get(position);
                 locationNameKey = locationName;
             }

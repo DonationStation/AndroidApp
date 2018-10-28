@@ -41,7 +41,7 @@ public class UserItemSearchActivity extends AppCompatActivity {
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
-        //populate location spinner (dynamic)
+        // Populate location spinner (dynamic)
         DatabaseReference mLocationReference = mDatabaseReference.child("Locations");
         locations.add("All Locations");
         final ArrayAdapter<String> locationAdapter = new ArrayAdapter<>(this,
@@ -64,7 +64,7 @@ public class UserItemSearchActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
 
-        // populate category spinner
+        // Populate category spinner
         DatabaseReference mCategoryReference = mDatabaseReference.child("Categories");
         categories.add("All Categories");
         final ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this,
@@ -98,18 +98,19 @@ public class UserItemSearchActivity extends AppCompatActivity {
         String category = categorySpinner.getSelectedItem().toString();
         String name = nameSearch.getText().toString();
 
-        // Separate conditions
+        // Set locationArray in terms of which an user selected.
+        // for locationArray
         if (location.equals("All Locations")) {
             locationArray.addAll(locations);
         } else {
             locationArray.add(location);
         }
+        // for categoryArray
         if (category.equals("All Categories")) {
             categoryArray.addAll(categories);
         } else {
             categoryArray.add(category);
         }
-
 
         // Pass the values.
         intent.putExtra("locationSearch", locationArray);
