@@ -1,7 +1,13 @@
 package donationstation.androidapp.controllers;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+
+
+
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -9,12 +15,27 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Marker;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import donationstation.androidapp.R;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+
     private GoogleMap mMap;
+    private FirebaseDatabase FDB;
+    private DatabaseReference DBR;
+    private List<MarkerOptions> markerList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +45,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        markerList = new ArrayList<>();
+        FDB = FirebaseDatabase.getInstance();
+        GetDataFirebase();
+
     }
 
 
@@ -40,9 +66,54 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+//       for (MarkerOptions marker: markerList) {
+//           mMap.addMarker(marker);
+//       }
+//        mMap.addMarker(markerList.get(0));
+
+//        mMap.addMarker(new MarkerOptions()
+//                .position(new LatLng(-33.87365, 151.20689))
+//                .title("Sydney"));
+
+
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(ADFStation4));
+    }
+
+    void GetDataFirebase() {
+        DBR = FDB.getReference("Locations");
+
+        DBR.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String name = dataSnapshot.getKey().toString();
+                String latitude = dataSnapshot.child("latitude").getValue().toString();
+                String longitude = dataSnapshot.child("longitude").getValue().toString();
+                LatLng latlng = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+                markerList.add(new MarkerOptions().position(latlng).title(name));
+//                System.out.println("Bouncy: " + markerList.get(0));
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
