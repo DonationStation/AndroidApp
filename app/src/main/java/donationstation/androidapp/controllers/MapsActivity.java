@@ -45,8 +45,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        markerList = new ArrayList<>();
         FDB = FirebaseDatabase.getInstance();
 
     }
@@ -65,19 +63,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         GetDataFirebase();
-
-
-//       for (MarkerOptions marker: markerList) {
-//           mMap.addMarker(marker);
-//       }
-//        mMap.addMarker(markerList.get(0));
-
-//        mMap.addMarker(new MarkerOptions()
-//                .position(new LatLng(-33.87365, 151.20689))
-//                .title("Sydney"));
-
-
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(ADFStation4));
     }
 
     void GetDataFirebase() {
@@ -91,7 +76,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String longitude = dataSnapshot.child("longitude").getValue().toString();
                 LatLng latlng = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
                 mMap.addMarker(new MarkerOptions().position(latlng).title(name));
-//                System.out.println("Bouncy: " + markerList.get(0));
 
             }
 
