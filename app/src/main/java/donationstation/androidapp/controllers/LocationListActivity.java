@@ -117,8 +117,11 @@ public class LocationListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
             String title = onlyNameData.get(position);
+//            System.out.println(title);
             holder.MyText.setText(title);
             final String currentKey = listData.get(position);
+            System.out.println(currentKey);
+
             final String currentNameKey = onlyNameData.get(position);
 
             // When click each item

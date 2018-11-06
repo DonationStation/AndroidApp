@@ -1,5 +1,6 @@
 package donationstation.androidapp.controllers;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -34,7 +35,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private FirebaseDatabase FDB;
     private DatabaseReference DBR;
-    private List<MarkerOptions> markerList;
 
 
     @Override
@@ -63,7 +63,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         GetDataFirebase();
+
+        LatLng latlng = new LatLng(33.75416, -84.37742);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 10));
+        // Set a listener for marker click.
+//        mMap.setOnMarkerClickListener(this);
     }
+
+//    /** Called when the user clicks a marker. */
+//    @Override
+//    public boolean onMarkerClick(final Marker marker) {
+//        System.out.println(marker.getTitle());
+//        Intent intent1 = new Intent(MapsActivity.this, LocationDetailActivity.class);
+//        intent1.putExtra("key", marker.getSnippet());
+//        startActivity(intent1);
+//        return false;
+//    }
 
     void GetDataFirebase() {
         DBR = FDB.getReference("Locations");
@@ -74,9 +89,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String name = dataSnapshot.getKey().toString();
                 String latitude = dataSnapshot.child("latitude").getValue().toString();
                 String longitude = dataSnapshot.child("longitude").getValue().toString();
+                String phone = dataSnapshot.child("phone").getValue().toString();
                 LatLng latlng = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
-                mMap.addMarker(new MarkerOptions().position(latlng).title(name));
-
+                mMap.addMarker(new MarkerOptions().position(latlng).title(name).snippet(phone));
             }
 
             @Override
