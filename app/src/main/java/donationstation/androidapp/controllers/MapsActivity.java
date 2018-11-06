@@ -48,7 +48,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         markerList = new ArrayList<>();
         FDB = FirebaseDatabase.getInstance();
-        GetDataFirebase();
 
     }
 
@@ -65,6 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        GetDataFirebase();
 
 
 //       for (MarkerOptions marker: markerList) {
@@ -90,7 +90,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String latitude = dataSnapshot.child("latitude").getValue().toString();
                 String longitude = dataSnapshot.child("longitude").getValue().toString();
                 LatLng latlng = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
-                markerList.add(new MarkerOptions().position(latlng).title(name));
+                mMap.addMarker(new MarkerOptions().position(latlng).title(name));
 //                System.out.println("Bouncy: " + markerList.get(0));
 
             }
