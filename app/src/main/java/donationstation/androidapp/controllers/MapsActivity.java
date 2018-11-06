@@ -72,10 +72,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 String name = dataSnapshot.getKey().toString();
+                String phone = dataSnapshot.child("phone").getValue().toString();
                 String latitude = dataSnapshot.child("latitude").getValue().toString();
                 String longitude = dataSnapshot.child("longitude").getValue().toString();
                 LatLng latlng = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
-                mMap.addMarker(new MarkerOptions().position(latlng).title(name));
+                mMap.addMarker(new MarkerOptions().position(latlng).title(name).snippet(phone));
 
             }
 
