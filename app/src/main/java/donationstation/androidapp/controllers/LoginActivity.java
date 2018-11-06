@@ -79,28 +79,28 @@ public class LoginActivity extends AppCompatActivity {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String member;
-                String tempPwd = null;
-
-                //gets passwords for the accounts
-                for (DataSnapshot data: dataSnapshot.getChildren()) {
-                    tempPwd = data.child("password").getValue().toString();
-                }
+                boolean foundMember = false;
+                boolean foundPassword = false;
+                //String member;
                 String tempEmail = email.replace(".", ",");
-                if (dataSnapshot.child(tempEmail).exists()){ //email exists in db
-                        if(tempPwd.equals(password)) { //checks that password is correct otherwise error
-                            member = dataSnapshot.child(tempEmail).child("accountType").getValue().toString();
-                            updateUI(member);
-                        } else {
-                            showProgress(false);
-                            mPasswordView.setError("Password Incorrect");
-                            mPasswordView.requestFocus();
+                for(DataSnapshot member : dataSnapshot.getChildren()) {
+                    if(member.getKey().toString().equals(tempEmail)) {
+                        foundMember = true;
+                        if(member.child("password").getValue().toString().equals(password)){
+                            String memType = dataSnapshot.child(tempEmail).child("accountType").getValue().toString();
+                            updateUI(memType);
+                            foundPassword = true;
                         }
-                } else { //email not found
+                    }
+                }
+                if (!foundMember) {
                     showProgress(false);
                     mEmailView.setError("Username Incorrect");
                     mEmailView.requestFocus();
-
+                } else if (!foundPassword){
+                    showProgress(false);
+                    mPasswordView.setError("Password Incorrect");
+                    mPasswordView.requestFocus();
                 }
             }
             @Override

@@ -31,9 +31,18 @@ public class UserHomepageActivity extends Activity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-    public void viewLocations(View view) {
+    public void viewLocationsList(View view) {
         Intent intent = new Intent(this, LocationListActivity.class);
         intent.putExtra("userType", userType);
+        startActivity(intent);
+    }
+    public void viewLocationsMap(View view) {
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("userType", userType);
+        startActivity(intent);
+    }
+    public void searchItems(View view) {
+        Intent intent = new Intent(this, UserItemSearchActivity.class);
         startActivity(intent);
     }
 }
