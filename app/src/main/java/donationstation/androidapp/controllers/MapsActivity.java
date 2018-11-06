@@ -63,6 +63,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         GetDataFirebase();
+        LatLng latlng = new LatLng(33.75416, -84.37742);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 10));
     }
 
     void GetDataFirebase() {
@@ -77,7 +79,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String longitude = dataSnapshot.child("longitude").getValue().toString();
                 LatLng latlng = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
                 mMap.addMarker(new MarkerOptions().position(latlng).title(name).snippet(phone));
-
             }
 
             @Override
