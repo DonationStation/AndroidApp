@@ -143,7 +143,7 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
             startActivity(intent);
         }
     }
-    private void writeNewUser(String name, String email, String password, String username,
+    public void writeNewUser(String name, String email, String password, String username,
                               String accountType) {
         String key = email.replace(".", ",");
         Member user = new Member(name, email, password, username, accountType);

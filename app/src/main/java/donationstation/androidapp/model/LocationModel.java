@@ -26,7 +26,6 @@ public class LocationModel {
         for (Location d : items) {
             if (d.getKey() == key) return d;
         }
-        Log.d("MYAPP", "Warning - Failed to find key: " + key);
         return null;
     }
 }

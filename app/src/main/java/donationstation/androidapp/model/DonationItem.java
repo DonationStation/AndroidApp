@@ -12,7 +12,9 @@ public class DonationItem {
     private String category;
 
 
+    public DonationItem() {
 
+    }
     public DonationItem(String date, String time, String location, String category,
                         double value, String shortDes, String fullDes){
         this.date = date;

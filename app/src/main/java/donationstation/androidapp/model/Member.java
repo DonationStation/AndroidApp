@@ -3,6 +3,7 @@ import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Member {
@@ -13,7 +14,14 @@ public class Member {
     protected boolean accountState;
     protected String accountType;
     protected String location;
-    private static ArrayList<Member> memberArray = new ArrayList<>();
+    public static final Member INSTANCE = new Member();
+    private ArrayList<Member> memberArray;
+
+    public Member() {memberArray = new ArrayList<>();}
+    public void add(Member member) {memberArray.add(member);}
+    public List<Member> getMembers() {
+        return memberArray;
+    }
 
     public Member(String name, String email, String password, String username, String accountType) {
         this.username = username;
@@ -40,9 +48,6 @@ public class Member {
     public String getLocation() {return location; }
 
 
-    public static ArrayList<Member> getMemberArray() {
-        return memberArray;
-    }
 
     @Override
     public boolean equals(Object o){
@@ -69,4 +74,10 @@ public class Member {
         return result;
     }
 
+    public Member findMemberByEmail(String email) {
+        for (Member m : memberArray) {
+            if (m.getEmail().equals(email) ) return m;
+        }
+        return null;
+    }
 }
