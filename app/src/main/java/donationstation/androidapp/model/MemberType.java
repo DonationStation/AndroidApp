@@ -22,6 +22,10 @@ public enum MemberType {
         boolValues.add(value4);
     }
 
+    /**
+     * the arraylist of boolean values
+     * @return boolean array list
+     */
     public ArrayList<Boolean> getBoolValues() {
         return boolValues;
     }

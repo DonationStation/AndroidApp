@@ -11,10 +11,14 @@ public class DonationItem {
     private double value;
     private String category;
 
-
+    /**
+     * empty constructor for donation item
+     */
     public DonationItem() {
 
     }
+
+    
     public DonationItem(String date, String time, String location, String category,
                         double value, String shortDes, String fullDes){
         this.date = date;

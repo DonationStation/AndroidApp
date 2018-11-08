@@ -17,12 +17,37 @@ public class Member {
     public static final Member INSTANCE = new Member();
     private ArrayList<Member> memberArray;
 
-    public Member() {memberArray = new ArrayList<>();}
-    public void add(Member member) {memberArray.add(member);}
+    /**
+     * Empty constructor to create a member object array
+     */
+    public Member() {
+        memberArray = new ArrayList<>();
+    }
+
+    /**
+     * add member to member array
+     * @param member the object to be added
+     */
+    public void add(Member member) {
+        memberArray.add(member);
+    }
+
+    /**
+     * list of members
+     * @return the list of member objects
+     */
     public List<Member> getMembers() {
         return memberArray;
     }
 
+    /**
+     * Constructor to create a member object
+     * @param name member's name
+     * @param email member's email
+     * @param password member's password
+     * @param username member's username
+     * @param accountType member's account type
+     */
     public Member(String name, String email, String password, String username, String accountType) {
         this.username = username;
         this.name = name;
@@ -33,18 +58,50 @@ public class Member {
         this.location = location;
     }
 
+    /**
+     * sets the member's account type
+     * @param acc the type of account
+     */
     public void setAccount(String acc) {
         accountType = acc;
     }
+
+    /**
+     * returns the member's account type
+     * @return account type
+     */
     public String getAccount() {
         return accountType;
     }
 
-
+    /**
+     * returns the member's username
+     * @return username
+     */
     public String getUsername() { return username; }
+
+    /**
+     * returns the member's email
+     * @return email
+     */
     public String getEmail() { return email; }
+
+    /**
+     * returns the member's password
+     * @return password
+     */
     public String getPassword() { return password; }
+
+    /**
+     * set members location
+     * @param location location to set for member
+     */
     public void setLocation(String location) { this.location = location; }
+
+    /**
+     * return members location
+     * @return location
+     */
     public String getLocation() {return location; }
 
 
@@ -74,6 +131,11 @@ public class Member {
         return result;
     }
 
+    /**
+     * Finds a member in the array by email
+     * @param email the email to look for in the array
+     * @return the member object if found, null if not
+     */
     public Member findMemberByEmail(String email) {
         for (Member m : memberArray) {
             if (m.getEmail().equals(email) ) return m;
