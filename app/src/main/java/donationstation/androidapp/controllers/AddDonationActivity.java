@@ -92,6 +92,11 @@ public class AddDonationActivity extends Activity {
         populateSpinnerArrays();
     }
 
+    /**
+     * Adds the user's donation to app and firebase
+     * @param view input to EmployeeHomepageActivity
+     */
+
     public void addDonationButtonClicked(View view) {
         //add the donation
         addDonationToFirebase();

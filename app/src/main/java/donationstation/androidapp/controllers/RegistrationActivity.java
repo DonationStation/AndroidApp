@@ -99,6 +99,11 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         }
     }
 
+    /**
+     *
+     * @param view view to pass to MainActivity
+     * sends user back to the main screen
+     */
     public void main(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -114,6 +119,12 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         _account.setAccount("Guest");
     }
 
+    /**
+     *
+     * @param view unused view
+     * takes end-consumer's inputted registration information
+     *             and attempts to register them.
+     */
     public void accept(View view) {
         attemptRegistration();
     }
@@ -143,6 +154,18 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
             startActivity(intent);
         }
     }
+
+    /**
+     *
+     * @param name name pulled from consumer's input in activity_registration
+     * @param email email pulled from consumer's input in activity_registration
+     *              to properly register, name must not be in firebase
+     * @param password password pulled from consumer's input in activity_registration
+     * @param username username pulled from consumer's input in activity_registration
+     * @param accountType accountType pulled from consumer's input in activity_registration
+     *                    pulled from spinner with selective sub-type
+     * used to create a new member in firebase of certain, defined subtypes
+     */
     public void writeNewUser(String name, String email, String password, String username,
                               String accountType) {
         String key = email.replace(".", ",");

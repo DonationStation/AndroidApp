@@ -88,6 +88,11 @@ public class UserItemSearchActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * @param view view to pass to DonationListActivity
+     * takes user's inputted search requirements and generates list of results
+     */
     public void searchByFilters(View view) {
         Intent intent = new Intent(this, DonationListActivity.class);
 

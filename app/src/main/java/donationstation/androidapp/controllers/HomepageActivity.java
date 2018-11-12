@@ -29,6 +29,12 @@ public class HomepageActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
+
+    /**
+     *
+     * @param view view to pass User to MainActivity
+     * logs Member of sub-type User out
+     */
     public void logout(View view) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();

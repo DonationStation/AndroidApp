@@ -27,15 +27,31 @@ public class EmployeeHomepageActivity extends Activity {
             userType = bundle.getString("userType");
         }
     }
+
+    /**
+     *
+     * @param view view to pass to MainActivity
+     * logs the Member of sub- type Employee out
+     */
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+    /**
+     *
+     * @param view view to pass to AddDonationActivity
+     * allows the Member of sub- type Employee to add a Donation
+     */
     public void addDonations(View view) {
         Intent intent = new Intent(this, AddDonationActivity.class);
         startActivity(intent);
     }
+    /**
+     *
+     * @param view view to pass to LocationListActivity
+     * allows the Member of sub- type Employee to add a view list of Locations
+     */
     public void viewDonations(View view) {
         Intent intent = new Intent(this, LocationListActivity.class);
         intent.putExtra("userType", userType);

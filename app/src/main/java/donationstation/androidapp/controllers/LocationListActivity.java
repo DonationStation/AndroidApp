@@ -100,7 +100,10 @@ public class LocationListActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * helper class to pass user's input to LocationDetailActivity
+     * functions as our RecyclerView Adapter for LocationListActivity
+     */
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         List<String> listArray;
@@ -140,7 +143,10 @@ public class LocationListActivity extends AppCompatActivity {
                 }
             });
         }
-
+        /**
+         * helper class to pass user's input to LocationDetailActivity
+         * functions as our RecyclerView Holder for LocationListActivity
+         */
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public TextView MyText;
             public LinearLayout linearLayout;

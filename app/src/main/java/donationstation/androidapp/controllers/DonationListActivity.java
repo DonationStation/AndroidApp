@@ -184,6 +184,10 @@ public class DonationListActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * helper class to pass user's input to DonationDetailActivity
+     * functions as our RecyclerView Adapter for DonationListActivity
+     */
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         List<String> listArray;
@@ -226,6 +230,10 @@ public class DonationListActivity extends AppCompatActivity {
             });
         }
 
+        /**
+         * helper class to pass user's input to DonationDetailActivity
+         * functions as our RecyclerView Holder for DonationListActivity
+         */
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public TextView MyText;
             public LinearLayout linearLayout;

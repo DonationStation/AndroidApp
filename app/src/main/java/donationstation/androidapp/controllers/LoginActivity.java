@@ -180,11 +180,23 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *
+     * @param view view to pass to MainActivity
+     * sends the end-consumer to MainActivity
+     */
     public void cancel(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     *
+     * @param view unused view
+     * takes inputted credentials and checks against firebase
+     * if successful, logs Member into Homepage corresponding to their
+     *             Member sub-type
+     */
     public void login(View view) {
         attemptLogin();
     }

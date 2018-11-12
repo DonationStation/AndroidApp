@@ -25,22 +25,42 @@ public class UserHomepageActivity extends Activity {
             userType = bundle.getString("userType");
         }
     }
+    /**
+     *
+     * @param view view to pass to MainActivity
+     * logs the Member of sub-type User out
+     */
     public void logout(View view) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+    /**
+     *
+     * @param view view to pass to LocationListActivity
+     * takes Member of sub-type Employee to list of locations
+     */
     public void viewLocationsList(View view) {
         Intent intent = new Intent(this, LocationListActivity.class);
         intent.putExtra("userType", userType);
         startActivity(intent);
     }
+    /**
+     *
+     * @param view view to pass to MapsActivity
+     * takes Member of sub-type User to a map of current locations
+     */
     public void viewLocationsMap(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
         intent.putExtra("userType", userType);
         startActivity(intent);
     }
+    /**
+     *
+     * @param view view to pass to UserItemSearchActivity
+     * takes Member of sub-type User to item search page
+     */
     public void searchItems(View view) {
         Intent intent = new Intent(this, UserItemSearchActivity.class);
         startActivity(intent);

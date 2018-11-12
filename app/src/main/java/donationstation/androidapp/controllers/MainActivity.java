@@ -32,27 +32,21 @@ public class MainActivity extends AppCompatActivity {
         //mAuth = FirebaseAuth.getInstance();
         // test
     }
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if (currentUser != null) {
-//            updateUI();
-//        }
-        //readLocationDataFile();
-//    }
 
-    //will need to update this method later so that method directs to corresponding homepage
-//    private void updateUI() {
-//        Intent intent = new Intent(this, HomepageActivity.class);
-//        startActivity(intent);
-//    }
-
+    /**
+     *
+     * @param view view to pass to LoginActivity
+     * sends end-consumer to login screen
+     */
     public void login(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+    /**
+     *
+     * @param view view to pass to RegistrationActicity
+     * sends end-consumer to registration screen
+     */
     public void register(View view) {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
