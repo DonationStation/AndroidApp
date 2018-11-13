@@ -72,7 +72,7 @@ public class ModelTest {
     }
     
     @Test
-    public void testEmplyeeModel() {
+    public void testEmployeeModel() {
         members.add(e);
         assertTrue(e.getAccount().equals("employee"));
         assertEquals(e,members.findMemberByEmail("EmpoyeeTestJunitEmail@example.com"));
