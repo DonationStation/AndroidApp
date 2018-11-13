@@ -43,6 +43,7 @@ public class ModelTest {
 
     Member members = Member.INSTANCE;
     Member m = new Member("test", "testing@example.com", "password", "test", "user");
+    Employee e = new Employee("EmplyeeTest", "EmpoyeeTestJunitEmail@example.com", "EmployeePassword", "Username", "employee");    
 
     @Test
     public void testLocationModel() {
