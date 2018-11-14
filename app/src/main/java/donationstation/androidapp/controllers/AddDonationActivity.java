@@ -158,6 +158,9 @@ public class AddDonationActivity extends Activity {
         });
     }
 
+    /**
+     * Populates Spinner arrays to store and display all Spinners.
+     */
     private void populateSpinnerArrays() {
         // populate month spinner
         for (int i = 1; i <= 12; i++) {

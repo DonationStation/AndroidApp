@@ -17,6 +17,7 @@ import donationstation.androidapp.model.Location;
 import donationstation.androidapp.model.LocationModel;
 import donationstation.androidapp.model.Member;
 import donationstation.androidapp.model.Employee;
+import donationstation.androidapp.model.User;
 
 
 import static junit.framework.Assert.assertFalse;
@@ -43,7 +44,8 @@ public class ModelTest {
 
     Member members = Member.INSTANCE;
     Member m = new Member("test", "testing@example.com", "password", "test", "user");
-    Employee e = new Employee("EmplyeeTest", "EmpoyeeTestJunitEmail@example.com", "EmployeePassword", "Username", "employee");    
+    Employee e = new Employee("EmplyeeTest", "EmpoyeeTestJunitEmail@example.com", "EmployeePassword", "Username", "employee");
+    User u = new User("UserTest", "UserTestJunitEmail@example.com", "UserPassword", "UserTestUserName", "user");
 
     @Test
     public void testLocationModel() {
@@ -77,5 +79,13 @@ public class ModelTest {
         assertTrue(e.getAccount().equals("employee"));
         assertEquals(e,members.findMemberByEmail("EmpoyeeTestJunitEmail@example.com"));
         assertNotSame(e, members.findMemberByEmail("testing@example.com"));
+    }
+
+    @Test
+    public void testUserModel() {
+        members.add(u);
+        assertTrue(u.getAccount().equals("user"));
+        assertEquals(u, members.findMemberByEmail("UserTestJunitEmail@example.com"));
+        assertNotSame(u, members.findMemberByEmail("testing@example.com"));
     }
 }
