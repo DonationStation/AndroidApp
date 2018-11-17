@@ -78,14 +78,20 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 boolean foundMember = false;
                 boolean foundPassword = false;
+                boolean accountLocked = false;
+                int attempt = 0;
                 //String member;
                 String tempEmail = email.replace(".", ",");
                 for(DataSnapshot member : dataSnapshot.getChildren()) {
                     if(member.getKey().toString().equals(tempEmail)) {
                         foundMember = true;
-                        if(member.child("password").getValue().toString().equals(password)){
+                        attempt = Integer.parseInt(member.child("attempts").getValue().toString());
+                        if(member.child("password").getValue().toString().equals(password)
+                                && member.child("accountState").getValue().
+                                toString().equals("true")){
                             String memType = dataSnapshot.child(tempEmail).
                                     child("accountType").getValue().toString();
+                            ref.child(tempEmail).child("attempts").setValue(0);
                             updateUI(memType);
                             foundPassword = true;
                         }
@@ -96,9 +102,19 @@ public class LoginActivity extends AppCompatActivity {
                     mEmailView.setError("Username Incorrect");
                     mEmailView.requestFocus();
                 } else if (!foundPassword){
-                    showProgress(false);
-                    mPasswordView.setError("Password Incorrect");
+                    if (attempt >= 3) {
+                        ref.child(tempEmail).child("accountState").setValue(false);
+                        mPasswordView.setError("Too many attempts, your account has been locked");
+                        showProgress(false);
+                    } else {
+                        ref.child(tempEmail).child("attempts").setValue(++attempt);
+                        showProgress(false);
+                        int attemptsLeft = 3 - attempt;
+                        mPasswordView.setError("Password Incorrect " + attemptsLeft +
+                                " attempts left.");
+                    }
                     mPasswordView.requestFocus();
+
                 }
             }
             @Override
