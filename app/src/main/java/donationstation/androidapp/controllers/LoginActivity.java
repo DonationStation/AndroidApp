@@ -199,6 +199,10 @@ public class LoginActivity extends AppCompatActivity {
         attemptLogin();
     }
 
+    /**
+     * Login as a guest user.
+     * @param view unused view
+     */
     public void loginAsGuest(View view) {
         Intent intent = new Intent(this, UserHomepageActivity.class);
         intent.putExtra("userType", "User");
