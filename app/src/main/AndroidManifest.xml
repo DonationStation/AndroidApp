@@ -66,8 +66,9 @@
 
         <activity
             android:name=".controllers.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
         <activity android:name=".controllers.SplashScreenActivity" />
+        <activity android:name=".controllers.AdminHomepageActivity"></activity>
     </application>
 
 </manifest>

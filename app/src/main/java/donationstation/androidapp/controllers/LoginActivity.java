@@ -168,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
         if (member != null) {
             switch (member.toLowerCase()) {
                 case "admin":
-                    intent = new Intent(this, MainActivity.class);
+                    intent = new Intent(this, AdminHomepageActivity.class);
                     intent.putExtra("userType", userType);
                     startActivity(intent);
                     break;
