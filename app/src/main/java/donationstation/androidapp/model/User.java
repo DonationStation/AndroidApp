@@ -1,5 +1,8 @@
 package donationstation.androidapp.model;
 
+/**
+ * class to represent a User
+ */
 public class User extends Member {
     /**
      * constructor for creation of user object
@@ -13,15 +16,5 @@ public class User extends Member {
         super(name, email, password, username, accountType);
     }
 
-    /**
-     * sets user's account state
-     * @param newState boolean value of whether account is locked or not
-     */
-    public void setAccountState(boolean newState) { super.accountState = newState; }
 
-    /**
-     * gets the user's account sate
-     * @return boolean value of status
-     */
-    public boolean getAccountState() { return super.accountState; }
 }

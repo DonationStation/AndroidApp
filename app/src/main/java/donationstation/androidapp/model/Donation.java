@@ -1,14 +1,15 @@
 package donationstation.androidapp.model;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for a Donation
+ */
 public class Donation {
     public static final Donation INSTANCE = new Donation();
 
-    private List<DonationItem> items;
+    private final List<DonationItem> items;
 
     private Donation() {
         items = new ArrayList<>();

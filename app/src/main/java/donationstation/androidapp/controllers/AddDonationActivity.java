@@ -1,8 +1,8 @@
 package donationstation.androidapp.controllers;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -17,12 +17,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import donationstation.androidapp.R;
 import donationstation.androidapp.model.DonationItem;
 
+/**
+ * Class to add Donation
+ */
 public class AddDonationActivity extends Activity {
 
     //Initial Object Instantiation
@@ -38,7 +40,7 @@ public class AddDonationActivity extends Activity {
     private EditText shortDescriptionBox;
     private EditText fullDescriptionBox;
     private DatabaseReference mDatabaseReference;
-    private int numOfItems = 0;
+    private int numOfItems;
     //Arrays to populate spinners
     ArrayList<String> months = new ArrayList<>();
     ArrayList<String> days = new ArrayList<>();
@@ -126,7 +128,8 @@ public class AddDonationActivity extends Activity {
         final DonationItem addedItem = new DonationItem(date, time, location, category, valueDouble,
                 shortDescription, fullDescription);
         //Inputting newly donated item to right spot in inventory
-        final DatabaseReference inputItemReference = mDatabaseReference.child(location).child("Inventory");
+        final DatabaseReference inputItemReference = mDatabaseReference.
+                child(location).child("Inventory");
         inputItemReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -138,18 +141,7 @@ public class AddDonationActivity extends Activity {
 
             }
 
-            //Inputting newly donated item to right spot in inventory
-//        final DatabaseReference inputItemReference = mDatabaseReference.child(location).child("Inventory");
-//        inputItemReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                String currentInventorySize = dataSnapshot.child("size").getValue().toString();
-//                Integer updatedInvSize = Integer.parseInt(currentInventorySize) + 1;
-//                String itemKey = "Item " + updatedInvSize;
-//                inputItemReference.child(itemKey).setValue(addedItem);
-//                inputItemReference.child("size").setValue(updatedInvSize);
-//
-//            }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

@@ -1,10 +1,8 @@
 package donationstation.androidapp.controllers;
 
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +27,9 @@ import java.util.List;
 
 import donationstation.androidapp.R;
 
-
+/**
+ * List of Locations
+ */
 public class LocationListActivity extends AppCompatActivity {
 
     private RecyclerView myRecyclerView;
@@ -53,12 +53,13 @@ public class LocationListActivity extends AppCompatActivity {
             userType = bundle.getString("userType");
         }
 
-        myRecyclerView = (RecyclerView) findViewById(R.id.locationLists);
+        myRecyclerView = findViewById(R.id.locationLists);
         myRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager LM = new LinearLayoutManager(getApplicationContext());
         myRecyclerView.setLayoutManager(LM);
         myRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        myRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
+        myRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+                LinearLayoutManager.VERTICAL));
 
         listData = new ArrayList<>();
         onlyNameData = new ArrayList<>();
@@ -108,12 +109,17 @@ public class LocationListActivity extends AppCompatActivity {
 
         List<String> listArray;
 
+        /**
+         *
+         * @param list list of Locations
+         */
         public MyAdapter(List<String> list) { this.listArray = list; }
 
         @NonNull
         @Override
         public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_location_layout, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).
+                    inflate(R.layout.list_location_layout, parent, false);
             return new MyViewHolder(view);
         }
 
@@ -130,12 +136,14 @@ public class LocationListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     switch (userType) {
                         case "User": // When the current user is a user
-                            Intent intent1 = new Intent(LocationListActivity.this, LocationDetailActivity.class);
+                            Intent intent1 = new Intent(LocationListActivity.this,
+                                    LocationDetailActivity.class);
                             intent1.putExtra("key", currentKey);
                             startActivity(intent1);
                             break;
                         case "Employee": // When the current user is an employee
-                            Intent intent2 = new Intent(LocationListActivity.this, DonationListActivity.class);
+                            Intent intent2 = new Intent(LocationListActivity.this,
+                                    DonationListActivity.class);
                             intent2.putExtra("key", currentNameKey);
                             startActivity(intent2);
                             break;
@@ -151,10 +159,14 @@ public class LocationListActivity extends AppCompatActivity {
             public TextView MyText;
             public LinearLayout linearLayout;
 
+            /**
+             *
+             * @param itemView Item holding text
+             */
             public MyViewHolder(View itemView) {
                 super(itemView);
-                MyText = (TextView) itemView.findViewById(R.id.locationName);
-                linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
+                MyText = itemView.findViewById(R.id.locationName);
+                linearLayout = itemView.findViewById(R.id.linearLayout);
             }
         }
 

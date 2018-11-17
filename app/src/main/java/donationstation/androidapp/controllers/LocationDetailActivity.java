@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -17,6 +16,9 @@ import java.util.ArrayList;
 
 import donationstation.androidapp.R;
 
+/**
+ * Location Details represented in this class
+ */
 public class LocationDetailActivity extends AppCompatActivity {
 
     private FirebaseDatabase FDB;
@@ -24,7 +26,7 @@ public class LocationDetailActivity extends AppCompatActivity {
     private TextView mDetailView;
     private String keyString;
 
-    private ArrayList<String> info = new ArrayList<>();
+    private final ArrayList<String> info = new ArrayList<>();
     private String address = "null";
     private String city = "null";
     private String key = "null";
@@ -53,7 +55,6 @@ public class LocationDetailActivity extends AppCompatActivity {
 
         mDetailView = findViewById(R.id.locationDetailss);
         FDB = FirebaseDatabase.getInstance();
-        //final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, info);
         GetDataFirebase();
     }
 

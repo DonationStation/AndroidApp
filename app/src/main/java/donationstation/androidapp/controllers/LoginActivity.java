@@ -4,13 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-
-
-
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -25,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import donationstation.androidapp.R;
-import donationstation.androidapp.model.Member;
 
 
 /**
@@ -38,7 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users");
+    private final DatabaseReference ref = FirebaseDatabase.
+            getInstance().getReference().child("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +84,8 @@ public class LoginActivity extends AppCompatActivity {
                     if(member.getKey().toString().equals(tempEmail)) {
                         foundMember = true;
                         if(member.child("password").getValue().toString().equals(password)){
-                            String memType = dataSnapshot.child(tempEmail).child("accountType").getValue().toString();
+                            String memType = dataSnapshot.child(tempEmail).
+                                    child("accountType").getValue().toString();
                             updateUI(memType);
                             foundPassword = true;
                         }

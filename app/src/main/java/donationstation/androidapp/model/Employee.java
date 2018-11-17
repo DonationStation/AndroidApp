@@ -1,5 +1,8 @@
 package donationstation.androidapp.model;
 
+/**
+ * Class to represent Employee
+ */
 public class Employee extends Member {
     /**
      * constructor for creation of employee object
@@ -9,7 +12,8 @@ public class Employee extends Member {
      * @param username employee's username
      * @param accountType employee's account type
      */
-    public Employee(String name, String email, String password, String username, String accountType) {
+    public Employee(String name, String email, String password,
+                    String username, String accountType) {
         super(name, email, password, username, accountType);
     }
 

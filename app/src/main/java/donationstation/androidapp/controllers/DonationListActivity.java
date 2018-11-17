@@ -1,10 +1,8 @@
 package donationstation.androidapp.controllers;
 
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -29,9 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import donationstation.androidapp.R;
-import donationstation.androidapp.model.DonationItem;
 
-
+/**
+ * Class to present list of donations
+ */
 public class DonationListActivity extends AppCompatActivity {
 
     private RecyclerView myRecyclerView;
@@ -67,12 +66,13 @@ public class DonationListActivity extends AppCompatActivity {
         }
         locationName = keyString;
 
-        myRecyclerView = (RecyclerView) findViewById(R.id.donationLists);
+        myRecyclerView = findViewById(R.id.donationLists);
         myRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager LM = new LinearLayoutManager(getApplicationContext());
         myRecyclerView.setLayoutManager(LM);
         myRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        myRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
+        myRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+                LinearLayoutManager.VERTICAL));
 
         listData = new ArrayList<>();
         donationDetailInfo = new ArrayList<>();
@@ -192,12 +192,17 @@ public class DonationListActivity extends AppCompatActivity {
 
         List<String> listArray;
 
+        /**
+         *
+         * @param list thingy
+         */
         public MyAdapter(List<String> list) { this.listArray = list; }
 
         @NonNull
         @Override
         public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_donation_layout, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).
+                    inflate(R.layout.list_donation_layout, parent, false);
             return new MyViewHolder(view);
         }
 
@@ -221,7 +226,8 @@ public class DonationListActivity extends AppCompatActivity {
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(DonationListActivity.this, DonationDetailActivity.class);
+                    Intent intent = new Intent(DonationListActivity.this,
+                            DonationDetailActivity.class);
                     // Get ready for passing position to the next activity
                     intent.putExtra("key", currentKey);
                     intent.putExtra("locationName", locationNameKey);
@@ -238,10 +244,14 @@ public class DonationListActivity extends AppCompatActivity {
             public TextView MyText;
             public LinearLayout linearLayout;
 
+            /**
+             *
+             * @param itemView holds text
+             */
             public MyViewHolder(View itemView) {
                 super(itemView);
-                MyText = (TextView) itemView.findViewById(R.id.location_name);
-                linearLayout = (LinearLayout) itemView.findViewById(R.id.donation_linear_layout);
+                MyText = itemView.findViewById(R.id.location_name);
+                linearLayout = itemView.findViewById(R.id.donation_linear_layout);
             }
         }
 

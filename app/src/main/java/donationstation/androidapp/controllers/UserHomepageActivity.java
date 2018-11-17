@@ -1,14 +1,17 @@
 package donationstation.androidapp.controllers;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import donationstation.androidapp.R;
 
+/**
+ * Class for a user homepage
+ */
 public class UserHomepageActivity extends Activity {
 
     private String userType;

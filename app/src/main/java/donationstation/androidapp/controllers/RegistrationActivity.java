@@ -1,34 +1,30 @@
 package donationstation.androidapp.controllers;
 
-import android.provider.ContactsContract;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.content.Intent;
 import android.widget.AdapterView;
-import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-
-import com.google.firebase.FirebaseError;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
-import java.util.HashMap;
-import java.util.Map;
-
 import donationstation.androidapp.R;
 import donationstation.androidapp.model.Member;
 
-public class RegistrationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+/**
+ * Registration Class
+ */
+public class RegistrationActivity extends AppCompatActivity
+        implements AdapterView.OnItemSelectedListener {
 
     private Spinner accountSpinner;
 
@@ -37,8 +33,9 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
     private EditText mNameView;
     private EditText mUserView;
     private EditText mEmailView;
-    private Spinner mAccountType;
-    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users");
+    //private Spinner mAccountType;
+    private final DatabaseReference ref = FirebaseDatabase.
+            getInstance().getReference().child("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +58,7 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         mPasswordView = findViewById(R.id.password);
         mNameView = findViewById(R.id.name);
         mUserView = findViewById(R.id.username);
-        mAccountType = findViewById(R.id.accountType);
+        //mAccountType = findViewById(R.id.accountType);
     }
 
     private void attemptRegistration() {
@@ -69,11 +66,12 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         final String password = mPasswordView.getText().toString();
         final String username = mUserView.getText().toString();
         final String name = mNameView.getText().toString();
-        final String accountType = mAccountType.getSelectedItem().toString();
+        final String accountType = accountSpinner.getSelectedItem().toString();
 
 
         // Todo
         if (accountType.equals("Select Account Type")) {
+            //no account selected. Handle
         }
         if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !username.isEmpty() &&
                 !accountType.isEmpty()) {

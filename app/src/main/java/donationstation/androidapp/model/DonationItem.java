@@ -1,7 +1,8 @@
 package donationstation.androidapp.model;
 
-import com.google.firebase.database.DatabaseReference;
-
+/**
+ * Donated Item class
+ */
 public class DonationItem {
     private String date;
     private String time;

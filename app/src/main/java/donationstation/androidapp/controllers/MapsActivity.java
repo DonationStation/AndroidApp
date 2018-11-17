@@ -1,13 +1,9 @@
 package donationstation.androidapp.controllers;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-
-
-
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -15,19 +11,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Marker;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import donationstation.androidapp.R;
 
+/**
+ * Map
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
 
@@ -77,7 +73,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String phone = dataSnapshot.child("phone").getValue().toString();
                 String latitude = dataSnapshot.child("latitude").getValue().toString();
                 String longitude = dataSnapshot.child("longitude").getValue().toString();
-                LatLng latlng = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+                LatLng latlng = new LatLng(Double.parseDouble(latitude),
+                        Double.parseDouble(longitude));
                 mMap.addMarker(new MarkerOptions().position(latlng).title(name).snippet(phone));
             }
 

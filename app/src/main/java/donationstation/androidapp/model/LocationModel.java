@@ -1,14 +1,15 @@
 package donationstation.androidapp.model;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Tester Class for models
+ */
 public class LocationModel {
     public static final LocationModel INSTANCE = new LocationModel();
 
-    private List<Location> items;
+    private final List<Location> items;
 
     /**
      * empty constructor for creating array list

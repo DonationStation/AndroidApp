@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -17,6 +16,9 @@ import java.util.ArrayList;
 
 import donationstation.androidapp.R;
 
+/**
+ * Class to create detailed view of donations
+ */
 public class DonationDetailActivity extends AppCompatActivity {
 
     private FirebaseDatabase FDB;
@@ -25,7 +27,7 @@ public class DonationDetailActivity extends AppCompatActivity {
     private String keyString;
     private String locationName;
 
-    private ArrayList<String> info = new ArrayList<>();
+    private final ArrayList<String> info = new ArrayList<>();
     private String category = "null";
     private String date = "null";
     private String fullDes = "null";
@@ -55,7 +57,8 @@ public class DonationDetailActivity extends AppCompatActivity {
     }
 
     void GetDataFirebase() {
-        DBR = FDB.getReference().child("Locations").child(locationName).child("Inventory").child(keyString);
+        DBR = FDB.getReference().child("Locations").child(locationName).
+                child("Inventory").child(keyString);
 
         DBR.addChildEventListener(new ChildEventListener() {
             @Override

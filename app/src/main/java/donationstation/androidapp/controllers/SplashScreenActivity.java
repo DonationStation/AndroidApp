@@ -1,12 +1,15 @@
 package donationstation.androidapp.controllers;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import donationstation.androidapp.R;
 
+/**
+ * A javadoc
+ */
 public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

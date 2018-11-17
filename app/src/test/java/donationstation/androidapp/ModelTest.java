@@ -1,52 +1,49 @@
 package donationstation.androidapp;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import junit.framework.Assert;
-
-import org.junit.Before;
 import org.junit.Test;
-
-
-import java.util.ArrayList;
 
 import donationstation.androidapp.model.Donation;
 import donationstation.androidapp.model.DonationItem;
+import donationstation.androidapp.model.Employee;
 import donationstation.androidapp.model.Location;
 import donationstation.androidapp.model.LocationModel;
 import donationstation.androidapp.model.Member;
-import donationstation.androidapp.model.Employee;
 import donationstation.androidapp.model.User;
 
-
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNotSame;
-import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
 
 
-
-
+/**
+ * Model to Test
+ */
 public class ModelTest {
-    Location locTest = new Location(123, "name", "latitude", "longitude",
+    Location locTest = new Location(123, "name", "latitude",
+            "longitude",
             "address", "city", "state", "zip", "type", "phone",
             "website");
 
     LocationModel locations = LocationModel.INSTANCE;
 
-    DonationItem donTest = new DonationItem("11/7/2018", "18:00", "AFD STATION 4", "CAT A", 32.3, "short",
+    DonationItem donTest = new DonationItem("11/7/2018", "18:00",
+            "AFD STATION 4", "CAT A", 32.3, "short",
             "long");
 
     Donation donations = Donation.INSTANCE;
 
     Member members = Member.INSTANCE;
-    Member m = new Member("test", "testing@example.com", "password", "test", "user");
-    Employee e = new Employee("EmplyeeTest", "EmpoyeeTestJunitEmail@example.com", "EmployeePassword", "Username", "employee");
-    User u = new User("UserTest", "UserTestJunitEmail@example.com", "UserPassword", "UserTestUserName", "user");
+    Member m = new Member("test", "testing@example.com",
+            "password", "test", "user");
+    Employee e = new Employee("EmplyeeTest", "EmpoyeeTestJunitEmail@example.com",
+            "EmployeePassword", "Username", "employee");
+    User u = new User("UserTest", "UserTestJunitEmail@example.com",
+            "UserPassword", "UserTestUserName", "user");
 
+    /**
+     * method to conduct testings
+     * Kaushi's method
+     */
     @Test
     public void testLocationModel() {
         locations.addItem(locTest);
@@ -55,7 +52,10 @@ public class ModelTest {
         assertEquals(null, locations.findItemByKey(456));
         assertNotSame(locTest,(locations.findItemByKey(456)));
     }
-
+    /**
+     * method to conduct testings
+     * Garrett's method
+     */
     @Test
     public void testDonationModel() {
         donations.addItem(donTest);
@@ -64,7 +64,10 @@ public class ModelTest {
         assertEquals(null, donations.findItemByCat("CAT B"));
         assertNotSame(donTest, donations.findItemByCat("CAT B"));
     }
-
+    /**
+     * method to conduct testings
+     * Ricky's method
+     */
     @Test
     public void testMemberModel() {
         members.add(m);
@@ -72,7 +75,10 @@ public class ModelTest {
         assertEquals(m, members.findMemberByEmail("testing@example.com"));
         assertNotSame(m, members.findMemberByEmail("test2@example.com"));
     }
-    
+    /**
+     * method to conduct testings
+     * Carl's method
+     */
     @Test
     public void testEmployeeModel() {
         members.add(e);
@@ -80,7 +86,10 @@ public class ModelTest {
         assertEquals(e,members.findMemberByEmail("EmpoyeeTestJunitEmail@example.com"));
         assertNotSame(e, members.findMemberByEmail("testing@example.com"));
     }
-
+    /**
+     * method to conduct testings
+     * Joon's method
+     */
     @Test
     public void testUserModel() {
         members.add(u);

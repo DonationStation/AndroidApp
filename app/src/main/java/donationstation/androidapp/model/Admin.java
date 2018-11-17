@@ -1,5 +1,8 @@
 package donationstation.androidapp.model;
 
+/**
+ * Class to Represent a Member
+ */
 public class Admin extends Member {
 
     /**

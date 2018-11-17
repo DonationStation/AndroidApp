@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class to represent a Member
+ */
 public class Member {
     protected String name;
     protected String email;
@@ -118,6 +121,10 @@ public class Member {
         return "A member named " + name + ". And username " + username;
     }
 
+    /**
+     *  no clue what this does
+     * @return A MAP
+     */
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();

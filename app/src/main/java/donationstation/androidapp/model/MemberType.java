@@ -1,13 +1,16 @@
 package donationstation.androidapp.model;
 import java.util.ArrayList;
 
+/**
+ * Class to hold boolean flags for Member Types
+ */
 public enum MemberType {
     USER (false, false, false, false),
     ADMIN (true, true, true, false),
     EMPLOYEE (false, false, false, true),
     MANAGER (false, false, false, true);
 
-    private ArrayList<Boolean> boolValues;
+    private final ArrayList<Boolean> boolValues;
     /**
      * Value1: Add/Remove Users
      * Value2: Add/Remove Locations

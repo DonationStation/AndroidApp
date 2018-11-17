@@ -1,5 +1,8 @@
 package donationstation.androidapp.model;
 
+/**
+ * Class to represent a Location
+ */
 public class Location {
     private int key;
     private String name;
@@ -34,7 +37,8 @@ public class Location {
      * @param phone the location's phone
      * @param website the location's website
      */
-    public Location(int key, String name, String latitude, String longitude, String address, String city, String state,
+    public Location(int key, String name, String latitude, String longitude,
+                    String address, String city, String state,
                     String zip, String type, String phone, String website) {
         this.key = key;
         this.name = name;
