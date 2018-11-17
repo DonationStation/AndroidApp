@@ -56,12 +56,17 @@ public class AdminHomepageActivity extends AppCompatActivity {
                         System.out.println("tempStateAccount is " + tempState);
                         if (tempState.equals("true")) {
                             mUserReference.child(tempEmail).child("accountState").setValue(false);
+                            Toast.makeText(AdminHomepageActivity.this,
+                                    email + "'s status has changed from unlocked to locked", Toast.LENGTH_SHORT).show();
                         } else {
                             mUserReference.child(tempEmail).child("accountState").setValue(true);
+                            Toast.makeText(AdminHomepageActivity.this,
+                                    email + "'s status has changed from locked to unlocked", Toast.LENGTH_SHORT).show();
                         }
                         isChanged = true;
                     }
                 }
+
 
                 if (!isChanged) {
                     Toast.makeText(AdminHomepageActivity.this, email + " does not exist.", Toast.LENGTH_SHORT).show();
