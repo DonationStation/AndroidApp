@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFACD"
     tools:context=".controllers.EmployeeHomepageActivity">
 
     <Button
@@ -25,15 +26,13 @@
         android:id="@+id/addDonation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="114dp"
         android:layout_marginEnd="134dp"
-        android:layout_marginBottom="121dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="40dp"
         android:onClick="addDonations"
         android:text="@string/add_donation"
-        app:layout_constraintBottom_toTopOf="@+id/viewDonations"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.718"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,16 +40,17 @@
         android:id="@+id/viewDonations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="208dp"
+        android:layout_marginEnd="149dp"
         android:layout_marginStart="147dp"
         android:layout_marginTop="93dp"
-        android:layout_marginEnd="149dp"
-        android:layout_marginBottom="208dp"
         android:onClick="viewDonations"
         android:text="@string/view_Donations"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.596"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addDonation" />
+        app:layout_constraintTop_toBottomOf="@+id/addDonation"
+        app:layout_constraintVertical_bias="0.6" />
 
 </android.support.constraint.ConstraintLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFACD"
     tools:context=".controllers.UserItemSearchActivity">
 
     <Spinner
@@ -36,9 +37,9 @@
 
     <Button
         android:id="@+id/searchButton"
-        android:layout_width="163dp"
-        android:layout_height="63dp"
-        android:layout_marginBottom="156dp"
+        android:layout_width="127dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="56dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:onClick="searchByFilters"
@@ -79,4 +80,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchByCategory"
         app:layout_constraintVertical_bias="0.076" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="101dp"
+        android:layout_height="158dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/searchButton"
+        app:layout_constraintHorizontal_bias="0.474"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchName"
+        app:layout_constraintVertical_bias="0.741"
+        app:srcCompat="@drawable/bike" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="122dp"
+        android:layout_height="137dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/searchButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/searchName"
+        app:layout_constraintVertical_bias="0.464"
+        app:srcCompat="@drawable/baseball_glove" />
+
 </android.support.constraint.ConstraintLayout>
