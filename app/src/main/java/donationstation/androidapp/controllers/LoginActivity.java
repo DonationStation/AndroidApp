@@ -198,5 +198,11 @@ public class LoginActivity extends AppCompatActivity {
     public void login(View view) {
         attemptLogin();
     }
+
+    public void loginAsGuest(View view) {
+        Intent intent = new Intent(this, UserHomepageActivity.class);
+        intent.putExtra("userType", "User");
+        startActivity(intent);
+    }
 }
 
