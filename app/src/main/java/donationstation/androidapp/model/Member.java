@@ -15,6 +15,7 @@ public class Member {
     protected String password;
     protected String username;
     protected boolean accountState;
+    protected int attempts;
     protected String accountType;
     protected String location;
     public static final Member INSTANCE = new Member();
@@ -59,6 +60,7 @@ public class Member {
         this.accountState = true;
         this.accountType = accountType;
         this.location = location;
+        this.attempts = 0;
     }
 
     /**
