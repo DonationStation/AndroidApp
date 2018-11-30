@@ -118,7 +118,6 @@ public class UserItemSearchActivity extends AppCompatActivity {
         } else {
             categoryArray.add(category);
         }
-
         // Pass the values.
         intent.putExtra("locationSearch", locationArray);
         intent.putExtra("categorySearch", categoryArray);

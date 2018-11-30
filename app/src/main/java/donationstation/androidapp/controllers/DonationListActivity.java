@@ -120,6 +120,10 @@ public class DonationListActivity extends AppCompatActivity {
                                                 listData.add(shortDes);
                                                 String[] detailInfo = {locationKey, itemKey};
                                                 donationDetailInfo.add(detailInfo);
+                                            } else if (shortDes.contains(nameSearch)) {
+                                                listData.add(shortDes);
+                                                String[] detailInfo = {locationKey, itemKey};
+                                                donationDetailInfo.add(detailInfo);
                                             }
                                         }
                                         // listData: an ArrayList<String> of each item's shortDes that is satisfied with the condition above (ex. [test, final, ...])
