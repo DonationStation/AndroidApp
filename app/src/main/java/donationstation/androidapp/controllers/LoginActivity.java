@@ -256,7 +256,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         startActivity(intent);
     }
 
-<<<<<<< HEAD
     /**
      * method to send a user forgot password screen
      * @param view
@@ -264,11 +263,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void forgotPasswordScreen(View view) {
         Intent intent = new Intent(this, ForgotPasswordActivity.class);
         startActivity(intent);
-=======
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
->>>>>>> ricky
     }
 }
 
