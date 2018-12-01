@@ -15,6 +15,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,13 +31,14 @@ import donationstation.androidapp.R;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private GoogleSignInClient mGoogleSignInClient;
     private final DatabaseReference ref = FirebaseDatabase.
             getInstance().getReference().child("users");
 
@@ -59,6 +64,33 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        findViewById(R.id.sign_in_button).setOnClickListener(this);
+
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.sign_in_button:
+                signIn();
+                break;
+        }
+    }
+
+
+    private void signIn() {
+//        System.out.println("Bouncy");
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, 0);
+        Intent intent = new Intent(this, UserHomepageActivity.class);
+        intent.putExtra("userType", "User");
+        startActivity(intent);
     }
 
 
@@ -224,6 +256,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+<<<<<<< HEAD
     /**
      * method to send a user forgot password screen
      * @param view
@@ -231,6 +264,11 @@ public class LoginActivity extends AppCompatActivity {
     public void forgotPasswordScreen(View view) {
         Intent intent = new Intent(this, ForgotPasswordActivity.class);
         startActivity(intent);
+=======
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+>>>>>>> ricky
     }
 }
 

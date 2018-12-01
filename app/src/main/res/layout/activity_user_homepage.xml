@@ -61,6 +61,7 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3"
+<<<<<<< HEAD
         app:layout_constraintVertical_bias="0.674" />
 
     <ImageView
@@ -93,5 +94,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/searchItems"
         app:layout_constraintVertical_bias="0.0" />
+=======
+        app:layout_constraintVertical_bias="0.406" />
+
+
+>>>>>>> ricky
 
 </android.support.constraint.ConstraintLayout>
