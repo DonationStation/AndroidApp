@@ -69,11 +69,9 @@
             android:name=".controllers.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".controllers.SplashScreenActivity" />
-<<<<<<< HEAD
         <activity android:name=".controllers.AdminHomepageActivity"></activity>
-=======
+
         <activity android:name=".controllers.ForgotPasswordActivity"></activity>
->>>>>>> garrett
     </application>
 
 </manifest>
