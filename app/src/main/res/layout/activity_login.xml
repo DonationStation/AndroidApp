@@ -24,8 +24,8 @@
 
     <ScrollView
         android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="362dp"
+        android:layout_height="311dp">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -67,13 +67,6 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/guestBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="loginAsGuest"
-                android:text="Continue as guest" />
-
-            <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
@@ -95,5 +88,19 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/guestBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="loginAsGuest"
+        android:text="Continue as guest" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="forgotPasswordScreen"
+        android:text="Forgot Password?" />
 
 </LinearLayout>

@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -68,7 +69,11 @@
             android:name=".controllers.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".controllers.SplashScreenActivity" />
+<<<<<<< HEAD
         <activity android:name=".controllers.AdminHomepageActivity"></activity>
+=======
+        <activity android:name=".controllers.ForgotPasswordActivity"></activity>
+>>>>>>> garrett
     </application>
 
 </manifest>

@@ -78,7 +78,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 boolean foundMember = false;
                 boolean foundPassword = false;
-                boolean accountLocked = false;
                 int attempt = 0;
                 //String member;
                 String tempEmail = email.replace(".", ",");
@@ -222,6 +221,15 @@ public class LoginActivity extends AppCompatActivity {
     public void loginAsGuest(View view) {
         Intent intent = new Intent(this, UserHomepageActivity.class);
         intent.putExtra("userType", "User");
+        startActivity(intent);
+    }
+
+    /**
+     * method to send a user forgot password screen
+     * @param view
+     */
+    public void forgotPasswordScreen(View view) {
+        Intent intent = new Intent(this, ForgotPasswordActivity.class);
         startActivity(intent);
     }
 }
