@@ -25,7 +25,7 @@ import donationstation.androidapp.R;
 public class UserHomepageActivity extends Activity {
 
     private String userType;
-//    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInClient mGoogleSignInClient;
 //    private GoogleApiClient mGoogleApiClient;
 
     @Override
@@ -62,7 +62,6 @@ public class UserHomepageActivity extends Activity {
         mAuth.signOut();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-//        signOut();
 //        System.out.println("Bouncy");
 //        System.out.println(mGoogleApiClient.isConnected());
 //        if (mGoogleApiClient.isConnected()) {
