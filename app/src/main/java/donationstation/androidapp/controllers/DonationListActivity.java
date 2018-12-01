@@ -120,7 +120,8 @@ public class DonationListActivity extends AppCompatActivity {
                                                 listData.add(shortDes);
                                                 String[] detailInfo = {locationKey, itemKey};
                                                 donationDetailInfo.add(detailInfo);
-                                            } else if (shortDes.contains(nameSearch)) {
+                                            } else if (shortDes.contains(nameSearch)) { //fuzzy search
+                                                //if user types part of word will show similar items
                                                 listData.add(shortDes);
                                                 String[] detailInfo = {locationKey, itemKey};
                                                 donationDetailInfo.add(detailInfo);
